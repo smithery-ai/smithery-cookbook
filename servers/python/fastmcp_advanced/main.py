@@ -2,7 +2,7 @@ import os
 import uvicorn
 import json
 import base64
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, unquote
 from fastmcp import FastMCP
 from starlette.middleware.cors import CORSMiddleware
 from typing import Optional
@@ -15,6 +15,7 @@ current_api_key: Optional[str] = None
 
 def validate_api_key(api_key: Optional[str]) -> bool:
     """Validate API key - accepts any non-empty string for demo."""
+    print(f"Validating API key: {api_key}")
     if not api_key:
         return False
     return len(api_key.strip()) > 0
@@ -65,16 +66,19 @@ class SmitheryConfigMiddleware:
     async def __call__(self, scope, receive, send):
         global current_api_key
         
-        if scope.get('type') == 'http' and scope.get('path') == '/mcp':
+        if scope.get('type') == 'http' and scope.get('path') in ['/mcp', '/mcp/']:
             query_string = scope.get('query_string', b'').decode('utf-8')
+            print(f"Processing request with query: {query_string}")
             if query_string:
                 params = parse_qs(query_string)
                 if 'config' in params:
                     try:
-                        # Decode base64 config from Smithery
-                        config_b64 = params['config'][0]
+                        # URL decode then base64 decode config from Smithery
+                        config_b64 = unquote(params['config'][0])
+                        print(f"Config parameter (URL decoded): {config_b64}")
                         config_json = base64.b64decode(config_b64).decode('utf-8')
                         config = json.loads(config_json)
+                        print(f"Parsed config: {config}")
                         
                         # Extract API key matching smithery.yaml schema
                         if 'apiKey' in config:
