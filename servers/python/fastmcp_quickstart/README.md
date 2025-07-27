@@ -47,6 +47,13 @@ This server provides a single tool called `greet` that takes a name and returns 
    - See the complete request/response flow
    - Debug and iterate on your MCP tools quickly
 
+5. **Deploy to Smithery:**
+   To deploy your MCP server:
+   - Push your code to GitHub (make sure to include the `smithery.yaml` and `Dockerfile`)
+   - Connect your repository at [https://smithery.ai/new](https://smithery.ai/new)
+
+Your server will be available over HTTP and ready to use with any MCP-compatible client!
+
 ## Stopping the Server
 
 Press `Ctrl+C` in the terminal to stop the server.
