@@ -15,7 +15,8 @@ RUN uv sync --frozen
 # Copy source code
 COPY . .
 
-# Expose port (Smithery will set PORT env var)
+# Set port to 8080 as required by Smithery proxy
+ENV PORT=8080
 EXPOSE 8080
 
 # Run the server

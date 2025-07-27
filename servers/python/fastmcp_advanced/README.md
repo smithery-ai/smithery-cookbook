@@ -1,80 +1,65 @@
-# Text Utils MCP Server
+# FastMCP Advanced for Smithery
 
-A simple MCP server that provides text processing utilities with API key authentication. Perfect for learning MCP server development with Smithery!
+A more advanced example of creating an MCP (Model Context Protocol) server using FastMCP with Python, featuring API key authentication and multiple text processing tools.
 
-## Features
+## What This Does
 
-- **Text Processing**: Basic text manipulation tools
-- **API Key Authentication**: Demonstrates Smithery configuration patterns
-- **Tool Discovery**: List available tools without authentication
-- **Simple & Clean**: Minimal code focused on core concepts
+This server provides text processing utilities with API key authentication:
+- **`uppercase(text)`** - Convert text to uppercase
+- **`word_count(text)`** - Count words in text  
+- **`count_character(text, character)`** - Count specific character occurrences
+- **`reverse_text(text)`** - Reverse the text
+- **`list_tools()`** - Discover available tools (no API key required)
 
-## Available Tools
+## Prerequisites
 
-1. **`uppercase(text)`** - Convert text to uppercase
-2. **`word_count(text)`** - Count words in text
-3. **`count_character(text, character)`** - Count specific character occurrences
-4. **`reverse_text(text)`** - Reverse the text
-5. **`list_tools()`** - Discover available tools (no API key required)
+- Python 3.12 or higher
+- [uv](https://docs.astral.sh/uv/) package manager
+- Node.js (for Smithery CLI and playground)
 
 ## Quick Start
 
-### Local Development
+1. **Install dependencies:**
+   ```bash
+   uv sync
+   ```
 
-```bash
-# Install dependencies
-uv sync
+2. **Run the server:**
+   ```bash
+   uv run python main.py
+   ```
 
-# Run the server
-python main.py
-```
+3. **Test it's working:**
+   The server will start on `http://127.0.0.1:8080`
+   
+   You should see output like:
+   ```
+   INFO:     Started server process [12345]
+   INFO:     Waiting for application startup.
+   INFO:     Application startup complete.
+   INFO:     Uvicorn running on http://127.0.0.1:8080 (Press CTRL+C to quit)
+   ```
 
-The server starts on `http://localhost:8080` with the MCP endpoint at `/mcp`.
+4. **Launch Smithery Playground:**
+   In a new terminal, launch the interactive Smithery playground:
+   ```bash
+   npx -y @smithery/cli playground --port 8080
+   ```
+   
+   This will open a web interface where you can:
+   - Test the tools (configure any API key in the playground)
+   - Try the classic: `count_character("strawberry", "r")` 
+   - See the complete request/response flow
+   - Debug and iterate on your MCP tools quickly
 
-### Example Usage
+5. **Deploy to Smithery:**
+   To deploy your MCP server:
+   - Push your code to GitHub (make sure to include the `smithery.yaml` and `Dockerfile`)
+   - Connect your repository at [https://smithery.ai/new](https://smithery.ai/new)
+   - Configure an API key in Smithery UI for tool access
 
-Once you configure any API key in Smithery, try these examples:
+Your server will be available over HTTP and ready to use with any MCP-compatible client!
 
-```python
-# The classic test case!
-count_character("strawberry", "r")  # Returns: "The character 'r' appears 3 times in 'strawberry'"
+## Stopping the Server
 
-# Other examples
-uppercase("hello world")           # Returns: "HELLO WORLD"
-word_count("The quick brown fox")  # Returns: "Word count: 4"
-reverse_text("hello")             # Returns: "olleh"
-```
-
-## API Key Authentication
-
-This server demonstrates Smithery's configuration patterns:
-
-- **Discovery Mode**: `list_tools()` works without authentication
-- **Validation**: Any non-empty API key is accepted (demo purposes)
-- **Configuration**: API key passed via Smithery as query parameter
-- **Error Handling**: Clear messages when API key is missing
-
-### How It Works
-
-1. User configures API key in Smithery UI
-2. Smithery passes configuration as: `/mcp?apiKey=your-key`
-3. `SmitheryConfigMiddleware` extracts and stores the API key
-4. Tools validate the stored API key when invoked
-
-## Deployment on Smithery
-
-1. Push your code (including `smithery.yaml` and `Dockerfile`) to GitHub
-2. Connect your GitHub to Smithery
-3. Navigate to the Deployments tab
-4. Click Deploy to build and host your server
-
-The `smithery.yaml` includes proper configuration schema for API key validation.
-
-## Perfect for Learning
-
-- **Minimal Code**: ~80 lines focused on essentials
-- **Clear Examples**: The classic "count r's in strawberry" test case
-- **Practical Tools**: Real text processing utilities
-- **API Key Patterns**: Production-ready authentication flow
-
-Great starting point for building your own MCP servers with authentication! 
+Press `Ctrl+C` in the terminal to stop the server. 
