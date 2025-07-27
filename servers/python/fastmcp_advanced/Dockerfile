@@ -2,11 +2,14 @@ FROM ghcr.io/astral-sh/uv:python3.12-alpine
 
 WORKDIR /app
 
+# Disable virtual environment creation to install system-wide
+ENV UV_SYSTEM_PYTHON=1
+
 # Copy dependency files first for better caching
 COPY pyproject.toml uv.lock ./
 
 # Install dependencies system-wide to avoid runtime venv creation
-RUN uv sync --frozen --no-cache --system
+RUN uv sync --frozen --no-cache
 
 # Copy application code
 COPY . .

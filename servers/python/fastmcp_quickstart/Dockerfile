@@ -1,23 +1,23 @@
-FROM python:3.11-slim
+FROM ghcr.io/astral-sh/uv:python3.12-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Copy dependency files
-COPY pyproject.toml uv.lock* ./
+# Disable virtual environment creation to install system-wide
+ENV UV_SYSTEM_PYTHON=1
 
-# Install uv for fast dependency management
-RUN pip install uv
+# Copy dependency files first for better caching
+COPY pyproject.toml uv.lock ./
 
-# Install dependencies
-RUN uv sync --frozen
+# Install dependencies system-wide to avoid runtime venv creation
+RUN uv sync --frozen --no-cache
 
-# Copy source code
+# Copy application code
 COPY . .
 
 # Set port to 8080 as required by Smithery proxy
 ENV PORT=8080
 EXPOSE 8080
 
-# Run the server
-CMD ["uv", "run", "python", "main.py"] 
+# Run Python directly instead of through uv to avoid runtime setup
+CMD ["python", "main.py"] 
