@@ -9,7 +9,6 @@ This server provides text processing utilities with API key authentication:
 - **`word_count(text)`** - Count words in text  
 - **`count_character(text, character)`** - Count specific character occurrences
 - **`reverse_text(text)`** - Reverse the text
-- **`list_tools()`** - Discover available tools (no API key required)
 
 ## Prerequisites
 
