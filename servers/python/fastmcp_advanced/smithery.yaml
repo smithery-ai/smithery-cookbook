@@ -1,0 +1,16 @@
+runtime: "container"
+build:
+  dockerfile: "Dockerfile"
+  dockerBuildPath: "."
+startCommand:
+  type: "http"
+  configSchema:
+    type: "object"
+    properties:
+      apiKey:
+        type: "string"
+        description: "Any API key for accessing the Text Utils server"
+        minLength: 1
+    required: ["apiKey"]
+  exampleConfig:
+    apiKey: "demo-key" 

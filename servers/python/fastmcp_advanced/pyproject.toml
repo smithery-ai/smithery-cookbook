@@ -1,0 +1,10 @@
+[project]
+name = "text-utils-mcp"
+version = "1.0.0"
+description = "A simple MCP server providing text processing utilities with API key authentication"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp>=2.10.6",
+    "uvicorn>=0.35.0",
+] 
