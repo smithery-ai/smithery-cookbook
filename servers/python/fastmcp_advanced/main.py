@@ -15,7 +15,6 @@ current_api_key: Optional[str] = None
 
 def validate_api_key(api_key: Optional[str]) -> bool:
     """Validate API key - accepts any non-empty string for demo."""
-    print(f"Validating API key: {api_key}")
     if not api_key:
         return False
     return len(api_key.strip()) > 0
