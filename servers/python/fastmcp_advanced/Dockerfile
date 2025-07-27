@@ -5,8 +5,8 @@ WORKDIR /app
 # Copy dependency files first for better caching
 COPY pyproject.toml uv.lock ./
 
-# Install dependencies with no cache for smaller image
-RUN uv sync --frozen --no-cache
+# Install dependencies system-wide to avoid runtime venv creation
+RUN uv sync --frozen --no-cache --system
 
 # Copy application code
 COPY . .
@@ -15,5 +15,5 @@ COPY . .
 ENV PORT=8080
 EXPOSE 8080
 
-# Run the application directly without uv wrapper
-CMD ["uv", "run", "main.py"] 
+# Run Python directly instead of through uv to avoid runtime setup
+CMD ["python", "main.py"] 
