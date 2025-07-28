@@ -1,6 +1,6 @@
 # FastMCP Quickstart for Smithery
 
-A simple example of creating an MCP (Model Context Protocol) server using FastMCP with Python, designed to work with the Smithery.
+A simple example of creating an MCP (Model Context Protocol) server using FastMCP with Python, designed to work with Smithery.
 
 ## What This Does
 
