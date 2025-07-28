@@ -409,7 +409,7 @@ export default function Home() {
           {toolResult && (
             <div>
               <h2 className="text-xl font-semibold mb-4">Tool Result</h2>
-              <div className="bg-gray-100 p-4 rounded-md">
+              <div className="bg-gray-900 p-4 rounded-md">
                 <pre className="whitespace-pre-wrap text-sm">
                   {JSON.stringify(toolResult, null, 2)}
                 </pre>
