@@ -2,6 +2,9 @@
 
 This project is an example of a Next.js application that acts as an OAuth 2.0 client for the Model Context Protocol (MCP).
 
+> [!IMPORTANT]  
+> **Warning:** This example uses an in-memory session store for demonstration purposes, which is not secure for production use. For real applications, use a persistent session store such as Redis or a database to ensure security and reliability.
+
 ## Integration Guide
 
 You can integrate the MCP OAuth client functionality into your own Next.js application without cloning this repository. Follow the steps below.
