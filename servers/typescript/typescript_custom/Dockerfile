@@ -1,18 +1,19 @@
 FROM node:22-slim
 
+# Set working directory
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
-
-# Install dependencies
-RUN npm ci --only=production
-
 # Copy source code
-COPY src/ ./src/
+COPY . .
+
+# Install all dependencies (need dev deps for TypeScript compilation)
+RUN npm ci
+
+# Build the TypeScript code
+RUN npm run build
 
 # Expose port
 EXPOSE 8000
 
-# Start the server
-CMD ["npm", "start"]
+# Start the server directly with node
+CMD ["node", "dist/index.js"]
