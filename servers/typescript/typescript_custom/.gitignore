@@ -1,0 +1,5 @@
+.smithery
+node_modules
+.env
+package-lock.json
+dist
