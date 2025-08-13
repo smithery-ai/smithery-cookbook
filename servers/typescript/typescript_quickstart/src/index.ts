@@ -3,6 +3,7 @@ import { z } from "zod";
 
 // Optional: Define configuration schema to require configuration at connection time
 export const configSchema = z.object({
+  apiKey: z.string().describe("Your API key"),
   debug: z.boolean().default(false).describe("Enable debug logging"),
 });
 
@@ -25,8 +26,14 @@ export default function createServer({
     },
   },
     async ({ text, character }) => {
+      // Verify API key is provided
+      if (!config.apiKey) {
+        throw new Error("API key is required");
+      }
+      
       // Count occurrences of the specific character (case insensitive)
       const count = text.toLowerCase().split(character.toLowerCase()).length - 1;
+      const debugInfo = config.debug ? ` (processed with API key ${config.apiKey.substring(0, 8)}...)` : "";
 
       return {
         content: [
