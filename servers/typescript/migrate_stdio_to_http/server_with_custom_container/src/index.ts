@@ -43,7 +43,7 @@ export default function createServer({
   config: z.infer<typeof configSchema>;
 }) {
   const server = new McpServer({
-    name: "example-server",
+    name: "Say Hello",
     version: "1.0.0",
   });
 
