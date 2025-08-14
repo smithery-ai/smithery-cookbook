@@ -3,4 +3,13 @@ build:
   dockerfile: "Dockerfile"           # Path to your Dockerfile
   dockerBuildPath: "."               # Docker build context
 startCommand:
-  type: "http" 
+  type: "http"
+  configSchema:
+    type: "object"
+    properties:
+      apiKey:
+        type: "string"
+        description: "API key for accessing the Character Counter server (optional for demo)"
+    required: []
+  exampleConfig:
+    apiKey: "demo-key" 
