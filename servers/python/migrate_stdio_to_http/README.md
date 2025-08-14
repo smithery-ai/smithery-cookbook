@@ -1,6 +1,6 @@
-# Python MCP Server with Custom Container
+# Python MCP Server with FastMCP
 
-A simple Python MCP server to demonstrate hosting on Smithery with custom docker containers.
+A simple Python MCP server built using FastMCP to demonstrate hosting on Smithery with custom docker containers.
 
 This server is designed to run both locally (STDIO transport) and remotely via Smithery (HTTP transport).
 
@@ -18,18 +18,18 @@ This server is designed to run both locally (STDIO transport) and remotely via S
    
 2. **Run the development server:**
 
-   **STDIO Mode (default):**
-   ```bash
-   API_KEY=your-api-key uv run python main.py
-   ```
-
    **HTTP Mode:**
    ```bash
    TRANSPORT=http uv run python main.py
    ```
 
+   **STDIO Mode (default):**
+   ```bash
+   API_KEY=your-api-key uv run python main.py
+   ```
+
 3. **Configuration:**
-   Smithery allows users to pass session-level configuration to MCP servers. Smithery passes this as base64-encoded JSON in the `config` query parameter. The server parses this configuration for each session:
+   Smithery allows users to pass session-level configuration to MCP servers. Smithery passes this as base64-encoded JSON in the `config` query parameter. This server parses this configuration for each session:
    
    ```python
    # How the server extracts configuration from query parameters
@@ -53,12 +53,12 @@ This server is designed to run both locally (STDIO transport) and remotely via S
 ## Project Structure
 
 - `main.py` - Main FastAPI server with MCP HTTP transport
-- `middleware/__init__.py` - Custom middleware for config extraction and MCP path redirection
+- `middleware/__init__.py` - Custom middleware for CORS, config extraction and MCP path redirection
 - `pyproject.toml` - Python dependencies and project configuration
 - `smithery.yaml` - Smithery deployment configuration
 - `Dockerfile` - Dockerfile to host server in Smithery
 
-## Things to Note:
+## Some Features:
 
 - **CORS**: Pre-configured CORS headers for browser-based MCP clients
 - **Smithery Session Configuration**: handles base64-encoded JSON configuration passed via query parameters
