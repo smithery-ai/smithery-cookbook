@@ -42,15 +42,12 @@ This server is designed to run both locally (STDIO transport) and remotely via S
    uv run python main.py
    ```
 
-3. **Configuration:**
-   Smithery allows users to pass session-level configuration to MCP servers. Smithery passes this as base64-encoded JSON in the `config` query parameter. This server parses this configuration for each session using the custom middleware (see [`middleware/__init__.py`](middleware/__init__.py))
-
-4. **Test interactively:**
+3. **Test interactively:**
    Once your server is running in HTTP mode, you can test it interactively using the Smithery playground:
    ```bash
    npx @smithery/cli playground --port 8080
    ```
 
-5. **Deploy your own version:**
+4. **Deploy your own version:**
    To deploy your own MCP server:
    - Connect your repository at [https://smithery.ai/new](https://smithery.ai/new)
