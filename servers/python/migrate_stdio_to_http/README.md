@@ -15,6 +15,14 @@ This server is designed to run both locally (STDIO transport) and remotely via S
 - Python 3.12 or higher
 - uv package manager
 
+## Project Structure
+
+- `main.py` - Main FastAPI server with MCP HTTP transport
+- `middleware/__init__.py` - Custom middleware for CORS, config extraction and MCP path redirection
+- `pyproject.toml` - Python dependencies and project configuration
+- `smithery.yaml` - Smithery deployment configuration
+- `Dockerfile` - Dockerfile to host server in Smithery
+
 ## Quick Start
 
 1. **Install dependencies:**
@@ -46,11 +54,3 @@ This server is designed to run both locally (STDIO transport) and remotely via S
 5. **Deploy your own version:**
    To deploy your own MCP server:
    - Connect your repository at [https://smithery.ai/new](https://smithery.ai/new)
-
-## Project Structure
-
-- `main.py` - Main FastAPI server with MCP HTTP transport
-- `middleware/__init__.py` - Custom middleware for CORS, config extraction and MCP path redirection
-- `pyproject.toml` - Python dependencies and project configuration
-- `smithery.yaml` - Smithery deployment configuration
-- `Dockerfile` - Dockerfile to host server in Smithery
