@@ -6,7 +6,9 @@
 	"module": "./src/index.ts",
 	"type": "module",
 	"scripts": {
-		"dev": "npx @smithery/cli dev"
+		"dev": "npx @smithery/cli dev",
+		"build:stdio": "tsc && node dist/index.js",
+		"build:http": "npx @smithery/cli build"
 	},
 	"keywords": [],
 	"author": "",
@@ -18,6 +20,7 @@
 	"devDependencies": {
 		"@smithery/cli": "^1.2.4",
 		"@types/node": "^22.0.0",
-		"tsx": "^4.19.4"
+		"tsx": "^4.19.4",
+		"typescript": "^5.0.0"
 	}
 }
