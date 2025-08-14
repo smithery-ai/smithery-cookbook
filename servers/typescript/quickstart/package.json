@@ -7,7 +7,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "npx @smithery/cli dev",
-		"build:stdio": "tsc && node dist/index.js",
+		"build:stdio": "tsc",
 		"build:http": "npx @smithery/cli build"
 	},
 	"keywords": [],
