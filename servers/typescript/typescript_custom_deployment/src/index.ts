@@ -1,8 +1,9 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { z } from "zod";
+import { logging } from "./middleware.js";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -11,22 +12,16 @@ const PORT = process.env.PORT || 8000;
 app.use(cors({
   origin: '*', // Configure appropriately for production
   exposedHeaders: ['Mcp-Session-Id'],
-  allowedHeaders: ['Content-Type', 'mcp-session-id'],
+  allowedHeaders: ['Content-Type', 'mcp-session-id', 'mcp-protocol-version'],
 }));
 
 app.use(express.json());
 
-// Parse configuration from query parameters
-function parseConfig(req: Request) {
-  const configParam = req.query.config as string;
-  if (configParam) {
-    return JSON.parse(Buffer.from(configParam, 'base64').toString());
-  }
-  return {};
-}
+// (Optional) simple middleware for logging
+app.use(logging);
 
 // Create MCP server with your tools
-function createServer(config: any) {
+function createServer() {
   const server = new McpServer({
     name: "character-counter-server",
     version: "1.0.0",
@@ -37,18 +32,13 @@ function createServer(config: any) {
     text: z.string().describe("The text to search in"),
     character: z.string().describe("The character to count (single character)")
   }, async ({ text, character }) => {
-    // Verify API key is provided
-    if (!config.apiKey) {
-      throw new Error("API key is required");
-    }
-    
     // Count occurrences of the specific character (case insensitive)
     const count = text.toLowerCase().split(character.toLowerCase()).length - 1;
     
     return { 
       content: [{ 
         type: "text", 
-        text: `The character "${character}" appears ${count} times in the text. (authenticated with ${config.apiKey.substring(0, 8)}...)` 
+        text: `The character "${character}" appears ${count} times in the text.` 
       }] 
     };
   });
@@ -59,8 +49,7 @@ function createServer(config: any) {
 // Handle MCP requests at /mcp endpoint
 app.all('/mcp', async (req: Request, res: Response) => {
   try {
-    const config = parseConfig(req);
-    const server = createServer(config);
+    const server = createServer();
     const transport = new StreamableHTTPServerTransport({
       sessionIdGenerator: undefined,
     });
