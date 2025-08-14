@@ -1,0 +1,26 @@
+{
+	"name": "typescript-quickstart",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"module": "./src/index.ts",
+	"type": "module",
+	"scripts": {
+		"dev": "npx @smithery/cli dev",
+		"build": "npx @smithery/cli build",
+		"start": "node .smithery/index.cjs"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "^1.12.1",
+		"zod": "^3.25.46"
+	},
+	"devDependencies": {
+		"@smithery/cli": "^1.2.4",
+		"@types/node": "^22.0.0",
+		"tsx": "^4.19.4",
+		"typescript": "^5.0.0"
+	}
+}

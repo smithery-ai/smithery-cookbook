@@ -1,7 +1,6 @@
-# my_server.py
 import os
 import uvicorn
-from fastmcp import FastMCP
+from mcp.server.fastmcp import FastMCP
 from starlette.middleware.cors import CORSMiddleware
 
 mcp = FastMCP(name="MyServer")
