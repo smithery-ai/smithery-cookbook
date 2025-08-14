@@ -1,15 +1,13 @@
-# TypeScript MCP Quickstart for Smithery
+# TypeScript MCP Server with Smithery CLI
 
-A simple example of creating an MCP (Model Context Protocol) server using TypeScript and the MCP SDK, designed to work with Smithery.
+A simple TypeScript MCP server to demonstrate hosting on Smithery using the Smithery CLI.
 
-## What This Does
-
-This server provides a `count_characters` tool that counts occurrences of a specific character in text. It also includes a corresponding prompt template. You'll test it using the Smithery Playground for interactive development.
+This server is designed to run both locally (STDIO transport) and remotely via Smithery (HTTP transport).
 
 ## Prerequisites
 
 - Node.js 18 or higher
-- npm or yarn package manager
+- npm package manager
 
 ## Quick Start
 
@@ -18,44 +16,57 @@ This server provides a `count_characters` tool that counts occurrences of a spec
    npm install
    ```
 
-2. **Run the server with playground:**
+2. **Run the development server:**
+
+   **STDIO Mode (default):**
+   ```bash
+   API_KEY=your-api-key npm run start:stdio
+   ```
+
+   **HTTP Mode:**
    ```bash
    npm run dev
    ```
-
-3. **Test it's working:**
+   
    The `npm run dev` command will automatically launch the Smithery Playground in your browser where you can:
    - Interact with your MCP server in real-time
    - Test the `count_characters` tool with different inputs
-   - Use the character counting prompt template
    - See the complete request/response flow
    - Debug and iterate on your MCP tools quickly
 
-4. **View the deployed example:**
-   You can see this server already deployed and running at:
-   https://smithery.ai/server/@smithery-ai/smithery-cookbook-typescript-quickstart
+3. **Configuration:**
+   Smithery allows users to pass session-level configuration to MCP servers. Smithery passes this as base64-encoded JSON in the `config` query parameter. The server parses this configuration for each session:
+   
+   ```typescript
+   // How the server extracts configuration
+   export const configSchema = z.object({
+     apiKey: z.string().describe("Your API key"), // for demonstration
+   });
+   
+   export default function createServer({
+     config,
+   }: {
+     config: z.infer<typeof configSchema>;
+   }) {
+     // Server uses the config.apiKey for validation
+   }
+   // Example extracted config: { apiKey: "your-api-key-here" }
+   ```
 
-5. **Deploy your own version:**
+   For local testing, you need to provide the API_KEY environment variable for STDIO mode.
+
+4. **Deploy your own version:**
    To deploy your own MCP server:
-   - Push your code to GitHub (make sure to include the `smithery.yaml`)
    - Connect your repository at [https://smithery.ai/new](https://smithery.ai/new)
-
-Your server will be available and ready to use with any MCP-compatible client!
 
 ## Project Structure
 
-- `src/index.ts` - Main server implementation with tools and prompts
+- `src/index.ts` - Main server implementation with MCP tools and session configuration
 - `package.json` - Node.js dependencies and scripts
 - `smithery.yaml` - Smithery deployment configuration
 
-## Available Tools
+## Things to Note:
 
-- **count_characters**: Counts how many times a specific character appears in the given text (case insensitive)
-
-## Available Prompts
-
-- **count_characters**: Generates a prompt for counting character occurrences in text
-
-## Stopping the Server
-
-Press `Ctrl+C` in the terminal to stop the server.
+- **Smithery CLI**: Uses `@smithery/cli` for HTTP transport and development playground
+- **Smithery Session Configuration**: handles user configuration passed via the Smithery platform
+- **Server Transport**: Can run with both STDIO and HTTP transports using different npm scripts

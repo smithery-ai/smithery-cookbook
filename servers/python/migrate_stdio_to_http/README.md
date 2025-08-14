@@ -7,7 +7,7 @@ This server is designed to run both locally (STDIO transport) and remotely via S
 ## Prerequisites
 
 - Python 3.12 or higher
-- uv package manager (recommended) or pip
+- uv package manager
 
 ## Quick Start
 
@@ -16,29 +16,20 @@ This server is designed to run both locally (STDIO transport) and remotely via S
    uv sync
    ```
    
-   Or with pip:
+2. **Run the development server:**
+
+   **STDIO Mode (default):**
    ```bash
-   pip install -e .
+   API_KEY=your-api-key uv run python main.py
    ```
 
-2. **Run the development server:**
+   **HTTP Mode:**
    ```bash
-   uv run python main.py
-   ```
-   
-   Or with pip:
-   ```bash
-   python main.py
-   ```
-   
-   You should see the message:
-   ```
-   Character Counter MCP Server starting in HTTP mode...
-   Listening on port 8080
+   TRANSPORT=http uv run python main.py
    ```
 
 3. **Configuration:**
-   This server is built to handle Smithery's session configuration. When deployed on Smithery, user configuration is automatically passed as base64-encoded JSON in the `config` query parameter. The server parses this configuration for each session:
+   Smithery allows users to pass session-level configuration to MCP servers. Smithery passes this as base64-encoded JSON in the `config` query parameter. The server parses this configuration for each session:
    
    ```python
    # How the server extracts configuration from query parameters

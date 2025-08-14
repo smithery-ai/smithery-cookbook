@@ -27,7 +27,7 @@ This server is designed to run both locally (STDIO transport) and remotely via S
    ```
 
 3. **Configuration:**
-   This server is built to handle Smithery's session configuration. When deployed on Smithery, user configuration is automatically passed as base64-encoded JSON in the `config` query parameter. The server parses this configuration for each session:
+   Smithery allows users to pass session-level configuration to MCP servers. Smithery passes this as base64-encoded JSON in the `config` query parameter. The server parses this configuration for each session:
    
    ```javascript
    // How the server extracts configuration from query parameters
