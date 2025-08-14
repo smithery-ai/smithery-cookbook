@@ -72,7 +72,7 @@ export default function createServer({
   return server.server;
 }
 
-// Optional: start the server with stdio transport by default (if you need backwards compatibility)
+// Optional: if you need backward compatibility, start the server with stdio transport by default
 async function main() {
   // Check if API key is provided
   const apiKey = process.env.API_KEY;

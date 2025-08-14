@@ -8,7 +8,9 @@
 	"scripts": {
 		"dev": "npx @smithery/cli dev",
 		"build:stdio": "tsc",
-		"build:http": "npx @smithery/cli build"
+		"build:http": "npx @smithery/cli build",
+		"prepare": "npm run build:stdio",
+		"prepublishOnly": "npm run build:stdio"
 	},
 	"keywords": [],
 	"author": "",
