@@ -2,10 +2,10 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 
-// Optional: Define configuration schema to require configuration at connection time
+// Optional: Define session configuration for server
+// Learn more: https://smithery.ai/docs/build/session-config
 export const configSchema = z.object({
-  apiKey: z.string().describe("Your API key"),
-  debug: z.boolean().default(false).describe("Enable debug logging"),
+  apiKey: z.string().describe("Your API key"), // for demonstration
 });
 
 export default function createServer({
@@ -46,33 +46,11 @@ export default function createServer({
     }
   );
 
-  server.registerPrompt( "count_characters", {
-    title: "Count Characters",
-    description: "Count occurrences of a specific character in text",
-    argsSchema: {
-      text: z.string().describe("The text to search in"),
-      character: z.string().describe("The character to count (single character)"),
-    },
-  },
-    ({ text, character }) => {
-      return {
-        messages: [
-          {
-            role: "user",
-            content: {
-              type: "text",
-              text: `Count how many times the character "${character}" appears in this text: "${text}"`
-            }
-          }
-        ]
-      };
-    }
-  );
-
   return server.server;
 }
 
 // Optional: if you need backward compatibility, start the server with stdio transport by default
+// You can publish this to npm for users to run this locally
 async function main() {
   // Check if API key is provided
   const apiKey = process.env.API_KEY;
@@ -84,7 +62,6 @@ async function main() {
   const server = createServer({
     config: {
       apiKey,
-      debug: process.env.DEBUG === "true",
     },
   });
 
