@@ -1,6 +1,6 @@
 # Python MCP Server with FastMCP
 
-A simple Python MCP server built using FastMCP to demonstrate hosting on Smithery with custom docker containers.
+A simple Python MCP server built using FastMCP to demonstrate hosting remote servers on Smithery with custom docker containers.
 
 This server is designed to run both locally (STDIO transport) and remotely via Smithery (HTTP transport).
 
