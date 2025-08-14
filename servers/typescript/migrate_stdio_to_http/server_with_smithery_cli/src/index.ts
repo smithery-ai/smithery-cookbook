@@ -53,11 +53,8 @@ export default function createServer({
 // You can publish this to npm for users to run this locally
 async function main() {
   // Check if API key is provided
-  const apiKey = process.env.API_KEY;
-  if (!apiKey) {
-    throw new Error("API_KEY environment variable is required but not provided");
-  }
-
+  const apiKey = process.env.API_KEY || "";
+  
   // Create server with configuration
   const server = createServer({
     config: {
