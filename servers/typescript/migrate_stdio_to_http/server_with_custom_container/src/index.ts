@@ -8,12 +8,11 @@ import { logging } from "./middleware.js";
 
 // Optional: Define configuration schema to require configuration at connection time
 export const configSchema = z.object({
-  apiKey: z.string().describe("Your API key"),
-  debug: z.boolean().default(false).describe("Enable debug logging"),
+  apiKey: z.string().optional().describe("Your API key"),
 });
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 
 // CORS configuration for browser-based MCP clients
 app.use(cors({
@@ -36,6 +35,12 @@ function parseConfig(req: Request) {
   return {};
 }
 
+function validateApiKey(apiKey?: string): boolean {
+  // Validate API key - accepts any string including empty ones for demo
+  // TODO: Add your own validation logic here as needed
+  return true;
+}
+
 // Create MCP server with your tools
 export default function createServer({
   config,
@@ -56,9 +61,9 @@ export default function createServer({
     },
   },
     async ({ text, character }) => {
-      // Verify API key is provided
-      if (!config.apiKey) {
-        throw new Error("API key is required");
+      // Validate API key (lenient validation for demo)
+      if (!validateApiKey(config.apiKey)) {
+        throw new Error("API key validation failed");
       }
       
       // Count occurrences of the specific character (case insensitive)
@@ -85,7 +90,7 @@ app.all('/mcp', async (req: Request, res: Response) => {
     
     // Validate and parse configuration
     const config = configSchema.parse({
-      apiKey: rawConfig.apiKey || process.env.API_KEY,
+      apiKey: rawConfig.apiKey || process.env.API_KEY || undefined,
       debug: rawConfig.debug || process.env.DEBUG === "true",
     });
     
@@ -121,15 +126,12 @@ async function main() {
   if (transport === 'stdio') {
     // Run in stdio mode
     const apiKey = process.env.API_KEY;
-    if (!apiKey) {
-      throw new Error("API_KEY environment variable is required but not provided");
-    }
+    // API key optional for demo
 
     // Create server with configuration
     const server = createServer({
       config: {
         apiKey,
-        debug: process.env.DEBUG === "true",
       },
     });
 
