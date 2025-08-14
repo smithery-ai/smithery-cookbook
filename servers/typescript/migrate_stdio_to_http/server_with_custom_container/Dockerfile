@@ -6,7 +6,7 @@ WORKDIR /app
 # Copy source code
 COPY . .
 
-# Install all dependencies (need dev deps for TypeScript compilation)
+# Install all dependencies
 RUN npm ci
 
 # Build the TypeScript code
