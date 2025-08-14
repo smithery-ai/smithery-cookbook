@@ -8,6 +8,13 @@ from middleware import SmitheryConfigMiddleware
 # Initialize MCP server with name displayed in Smithery
 mcp = FastMCP(name="Character Counter")
 
+def handle_config(config: dict):
+    """Handle configuration from Smithery - extract what we need."""
+    global current_api_key
+    if api_key := config.get('apiKey'):
+        current_api_key = api_key
+    # Could handle other config fields here like debug etc.
+
 # Store API key from Smithery config
 current_api_key: Optional[str] = None
 
@@ -29,14 +36,6 @@ def count_characters(text: str, character: str) -> str:
     
     return f'The character "{character}" appears {count} times in the text.'
 
-def handle_config(config: dict):
-    """Handle configuration from Smithery - extract what we need."""
-    global current_api_key
-    if api_key := config.get('apiKey'):
-        current_api_key = api_key
-        print(f"Config handler: Set API key from config")
-    # Could handle other config fields here like donkeyName, debug, etc.
-
 def main():
     transport_mode = os.getenv("TRANSPORT", "stdio")
     
@@ -53,7 +52,7 @@ def main():
             allow_credentials=True,
             allow_methods=["GET", "POST", "OPTIONS"],
             allow_headers=["*"],
-            expose_headers=["mcp-session-id"],
+            expose_headers=["mcp-session-id", "mcp-protocol-version"],
             max_age=86400,
         )
 
