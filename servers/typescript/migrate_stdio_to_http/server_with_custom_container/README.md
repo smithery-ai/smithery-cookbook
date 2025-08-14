@@ -2,7 +2,7 @@
 
 A simple typescript MCP server to demonstrate hosting on Smithery with custom docker containers. 
 
-This server is designed to run both locally (with STDIO transport) and remotely via Smithery (HTTP transport).
+This server is designed to run both locally (STDIO transport) and remotely via Smithery (HTTP transport).
 
 ## Prerequisites
 
