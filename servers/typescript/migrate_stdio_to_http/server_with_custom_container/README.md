@@ -59,4 +59,4 @@ This server is designed to run both locally (with STDIO transport) and remotely 
 - **CORS**: Pre-configured CORS headers for browser-based MCP clients
 - **Smithery Session Configuration**: handles base64-encoded JSON configuration passed via query parameters
 - **Request Logging Middleware**: Custom middleware for debugging HTTP requests and responses
-- **Server Transport**: Can run with both STDIO and HTTP transports
+- **Server Transport**: Can run with both STDIO and HTTP transports using `TRANSPORT` env variable
