@@ -27,12 +27,6 @@ This server is designed to run both locally (STDIO transport) and remotely via S
    ```bash
    npm run dev
    ```
-   
-   The `npm run dev` command will automatically launch the Smithery Playground in your browser where you can:
-   - Interact with your MCP server in real-time
-   - Test the `count_characters` tool with different inputs
-   - See the complete request/response flow
-   - Debug and iterate on your MCP tools quickly
 
 3. **Configuration:**
    Smithery allows users to pass session-level configuration to MCP servers. Smithery passes this as base64-encoded JSON in the `config` query parameter. The server parses this configuration for each session:
