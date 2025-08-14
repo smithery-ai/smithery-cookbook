@@ -1,15 +1,15 @@
 # TypeScript Custom MCP Server with Express
 
-A custom example of creating an MCP (Model Context Protocol) server using TypeScript, Express.js, and HTTP transport, designed to work with Smithery.
+A simple example of an MCP server implemented using the official MCP TypeScript SDK. This server is designed to run on both locally (with STDIO transport) and hosted on Smithery (HTTP transport and custom container).
 
-## What This Does
+## About the server
 
-This server provides a `count_characters` tool that counts occurrences of a specific character in text. Unlike the quickstart example, this implementation uses Express.js with HTTP transport, making it suitable for web-based deployments and custom server configurations.
+This server provides a `count_characters` tool that counts occurrences of a specific character in text. 
 
 ## Prerequisites
 
 - Node.js 18 or higher
-- npm or yarn package manager
+- npm package manager
 
 ## Quick Start
 
@@ -22,14 +22,13 @@ This server provides a `count_characters` tool that counts occurrences of a spec
    ```bash
    npm run dev
    ```
-
-3. **Test the server:**
-   The server will start on port 8000 (or PORT environment variable). You can test it by making MCP requests to:
+   
+   You should see the message:
    ```
-   http://localhost:8000/mcp
+   MCP HTTP Server listening on port 8000
    ```
 
-4. **Configuration:**
+3. **Configuration:**
    The server expects configuration to be passed as base64-encoded JSON in the `config` query parameter:
    ```javascript
    const config = { apiKey: "your-api-key-here" };
@@ -37,7 +36,7 @@ This server provides a `count_characters` tool that counts occurrences of a spec
    // Use configParam in your MCP client configuration
    ```
 
-5. **Deploy your own version:**
+4. **Deploy your own version:**
    To deploy your own MCP server:
    - Push your code to GitHub (make sure to include the `smithery.yaml`)
    - Connect your repository at [https://smithery.ai/new](https://smithery.ai/new)
@@ -47,31 +46,12 @@ This server provides a `count_characters` tool that counts occurrences of a spec
 - `src/index.ts` - Main Express server with MCP HTTP transport
 - `package.json` - Node.js dependencies and scripts
 - `smithery.yaml` - Smithery deployment configuration
-
-## Available Tools
-
-- **count_characters**: Counts how many times a specific character appears in the given text (case insensitive)
+- `Dockerfile` - Dockerfile to host server in Smithery
 
 ## Key Features
 
 - **HTTP Transport**: Uses Express.js for HTTP-based MCP communication
-- **CORS Support**: Configured for browser-based MCP clients
-- **Configuration Parsing**: Supports base64-encoded configuration via query parameters
-- **Error Handling**: Comprehensive error handling for MCP requests
-- **Session Management**: Proper cleanup of MCP sessions and transports
-
-## Development vs Production
-
-For development, the server runs with CORS allowing all origins (`origin: '*'`). For production deployments, make sure to:
-
-1. Configure CORS appropriately for your specific domain
-2. Set up proper authentication and API key validation
-3. Configure environment variables for production settings
-
-## Stopping the Server
-
-Press `Ctrl+C` in the terminal to stop the server.
-
-## API Endpoint
-
-The MCP server accepts requests at the `/mcp` endpoint and handles all MCP protocol communication through HTTP transport.
+- **CORS Support**: Pre-configured CORS headers for browser-based MCP clients, including proper session ID handling
+- **Configuration Parsing**: Supports base64-encoded JSON configuration via query parameters for secure config passing
+- **Request Logging Middleware**: Custom middleware for debugging HTTP requests and responses
+- **Dual Transport Support**: Can run with both STDIO (local development) and HTTP (production deployment) transports

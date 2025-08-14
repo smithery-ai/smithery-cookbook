@@ -15,5 +15,6 @@ RUN npm run build
 # Expose port
 EXPOSE 8000
 
-# Start the server directly with node
+# Start the server in HTTP mode
+ENV TRANSPORT=http
 CMD ["node", "dist/index.js"]
