@@ -18,7 +18,7 @@ def validate_api_key(api_key: Optional[str]) -> bool:
     return len(api_key.strip()) > 0
 
 # MCP Tool - requires valid API key
-@mcp.tool
+@mcp.tool()
 def count_characters(text: str, character: str) -> str:
     """Count occurrences of a specific character in text"""
     if not validate_api_key(current_api_key):
@@ -61,7 +61,6 @@ def main():
         # Use Smithery-required PORT environment variable
         port = int(os.environ.get("PORT", 8080))
         print(f"Listening on port {port}")
-        print("Example: count_characters('strawberry', 'r') -> counts r's!")
 
         uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
     
@@ -75,9 +74,6 @@ def main():
         
         # Set the global API key for stdio mode
         set_api_key(api_key)
-        
-        print(f"API key configured from environment: {api_key[:10]}...")
-        print("Example: count_characters('strawberry', 'r') -> counts r's!")
         
         # Run with stdio transport (default)
         mcp.run()
