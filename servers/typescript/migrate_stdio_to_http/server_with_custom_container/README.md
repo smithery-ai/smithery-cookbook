@@ -1,10 +1,8 @@
-# TypeScript Custom MCP Server with Express
+# TypeScript MCP Server with Custom Container
 
-A simple example of an MCP server implemented using the official MCP TypeScript SDK. This server is designed to run on both locally (with STDIO transport) and hosted on Smithery (HTTP transport and custom container).
+A simple typescript MCP server to demonstrate hosting on Smithery with custom docker containers. 
 
-## About the server
-
-This server provides a `count_characters` tool that counts occurrences of a specific character in text. 
+This server is designed to run both locally (STDIO transport) and remotely via Smithery (HTTP transport).
 
 ## Prerequisites
 
@@ -29,16 +27,24 @@ This server provides a `count_characters` tool that counts occurrences of a spec
    ```
 
 3. **Configuration:**
-   The server expects configuration to be passed as base64-encoded JSON in the `config` query parameter:
+   Smithery allows users to pass session-level configuration to MCP servers. Smithery passes this as base64-encoded JSON in the `config` query parameter. The server parses this configuration for each session:
+   
    ```javascript
-   const config = { apiKey: "your-api-key-here" };
-   const configParam = Buffer.from(JSON.stringify(config)).toString('base64');
-   // Use configParam in your MCP client configuration
+   // How the server extracts configuration from query parameters
+   function parseConfig(req) {
+     const configParam = req.query.config; // Base64-encoded JSON from Smithery
+     if (configParam) {
+       return JSON.parse(Buffer.from(configParam, 'base64').toString());
+     }
+     return {};
+   }
+   // Example extracted config: { apiKey: "your-api-key-here" }
    ```
+
+   For local testing, you can manually pass configuration via the query parameter.
 
 4. **Deploy your own version:**
    To deploy your own MCP server:
-   - Push your code to GitHub (make sure to include the `smithery.yaml`)
    - Connect your repository at [https://smithery.ai/new](https://smithery.ai/new)
 
 ## Project Structure
@@ -48,10 +54,9 @@ This server provides a `count_characters` tool that counts occurrences of a spec
 - `smithery.yaml` - Smithery deployment configuration
 - `Dockerfile` - Dockerfile to host server in Smithery
 
-## Key Features
+## Things to Note:
 
-- **HTTP Transport**: Uses Express.js for HTTP-based MCP communication
-- **CORS Support**: Pre-configured CORS headers for browser-based MCP clients, including proper session ID handling
-- **Configuration Parsing**: Supports base64-encoded JSON configuration via query parameters for secure config passing
+- **CORS**: Pre-configured CORS headers for browser-based MCP clients
+- **Smithery Session Configuration**: handles base64-encoded JSON configuration passed via query parameters
 - **Request Logging Middleware**: Custom middleware for debugging HTTP requests and responses
-- **Dual Transport Support**: Can run with both STDIO (local development) and HTTP (production deployment) transports
+- **Server Transport**: Can run with both STDIO and HTTP transports using `TRANSPORT` env variable
