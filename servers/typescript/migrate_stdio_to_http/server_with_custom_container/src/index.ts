@@ -64,7 +64,7 @@ export default function createServer({
     return { 
       content: [{ 
         type: "text", 
-        text: `Hello, ${name}! (authenticated with ${config.apiKey.substring(0, 8)}...)` 
+        text: `Hello, ${name}!` 
       }] 
     };
   });
