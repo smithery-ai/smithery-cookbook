@@ -1,4 +1,5 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 
 // Optional: Define configuration schema to require configuration at connection time
@@ -71,3 +72,30 @@ export default function createServer({
 
   return server.server;
 }
+
+// Optional: start the server with stdio transport by default (if you need backwards compatibility)
+async function main() {
+  // Check if API key is provided
+  const apiKey = process.env.API_KEY;
+  if (!apiKey) {
+    throw new Error("API_KEY environment variable is required but not provided");
+  }
+
+  // Create server with configuration
+  const server = createServer({
+    config: {
+      apiKey,
+      debug: process.env.DEBUG === "true",
+    },
+  });
+
+  // Start receiving messages on stdin and sending messages on stdout
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+}
+
+// By default the server with stdio transport
+main().catch((error) => {
+  console.error("Server error:", error);
+  process.exit(1);
+});
