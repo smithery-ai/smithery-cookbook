@@ -4,6 +4,13 @@ A simple Python MCP server built using FastMCP to demonstrate hosting on Smither
 
 This server is designed to run both locally (STDIO transport) and remotely via Smithery (HTTP transport).
 
+## Key Features:
+
+- **CORS**: Pre-configured CORS headers for browser-based MCP clients
+- **Smithery Session Configuration**: handles base64-encoded JSON configuration passed via query parameters
+- **MCP Path Redirection**: Custom middleware redirects `/mcp` to `/mcp/` for proper routing
+- **Server Transport**: Can run with both STDIO and HTTP transports using `TRANSPORT` env variable
+
 ## Prerequisites
 
 - Python 3.12 or higher
@@ -57,10 +64,3 @@ This server is designed to run both locally (STDIO transport) and remotely via S
 - `pyproject.toml` - Python dependencies and project configuration
 - `smithery.yaml` - Smithery deployment configuration
 - `Dockerfile` - Dockerfile to host server in Smithery
-
-## Some Features:
-
-- **CORS**: Pre-configured CORS headers for browser-based MCP clients
-- **Smithery Session Configuration**: handles base64-encoded JSON configuration passed via query parameters
-- **MCP Path Redirection**: Custom middleware redirects `/mcp` to `/mcp/` for proper routing
-- **Server Transport**: Can run with both STDIO and HTTP transports using `TRANSPORT` env variable
