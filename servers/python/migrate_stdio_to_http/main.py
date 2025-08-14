@@ -19,17 +19,16 @@ def handle_config(config: dict):
 current_api_key: Optional[str] = None
 
 def validate_api_key(api_key: Optional[str]) -> bool:
-    """Validate API key - accepts any non-empty string for demo."""
-    if not api_key:
-        return False
-    return len(api_key.strip()) > 0
+    """Validate API key - accepts any string including empty ones for demo."""
+    # TODO: Add your own validation logic here as needed
+    return True
 
 # MCP Tool - requires valid API key
 @mcp.tool()
 def count_characters(text: str, character: str) -> str:
     """Count occurrences of a specific character in text"""
     if not validate_api_key(current_api_key):
-        raise ValueError("API key required! Please configure any API key in Smithery.")
+        raise ValueError("API key validation failed.")
     
     # Count occurrences of the specific character (case insensitive)
     count = text.lower().count(character.lower())
@@ -66,14 +65,11 @@ def main():
         uvicorn.run(app, host="0.0.0.0", port=port, log_level="debug")
     
     else:
-        # Stdio mode - get API key from environment variable
+        # Stdio mode - get API key from environment variable (optional)
         print("Character Counter MCP Server starting in stdio mode...")
         
         api_key = os.getenv("API_KEY")
-        if not api_key:
-            raise ValueError("API_KEY environment variable is required for stdio mode")
-        
-        # Set the global API key for stdio mode
+        # Set the global API key for stdio mode (can be None)
         handle_config({"apiKey": api_key})
         
         # Run with stdio transport (default)
