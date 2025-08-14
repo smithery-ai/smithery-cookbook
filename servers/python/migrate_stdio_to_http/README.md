@@ -18,7 +18,7 @@ This server is designed to run both locally (STDIO transport) and remotely via S
 ## Project Structure
 
 - `main.py` - Main FastAPI server with MCP HTTP transport
-- `middleware/__init__.py` - Custom middleware for CORS, config extraction and MCP path redirection
+- `middleware/__init__.py` - Custom middleware to extract config
 - `pyproject.toml` - Python dependencies and project configuration
 - `smithery.yaml` - Smithery deployment configuration
 - `Dockerfile` - Dockerfile to host server in Smithery
