@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8000;
 app.use(cors({
   origin: '*', // Configure appropriately for production
   exposedHeaders: ['Mcp-Session-Id'],
-  allowedHeaders: ['Content-Type', 'mcp-session-id', 'mcp-protocol-version'],
+  allowedHeaders: ['Content-Type', 'mcp-session-id'],
 }));
 
 app.use(express.json());
@@ -20,27 +20,33 @@ app.use(express.json());
 // (Optional) simple middleware for logging
 app.use(logging);
 
+// Parse configuration from query parameters
+function parseConfig(req: Request) {
+  const configParam = req.query.config as string;
+  if (configParam) {
+    return JSON.parse(Buffer.from(configParam, 'base64').toString());
+  }
+  return {};
+}
+
 // Create MCP server with your tools
-function createServer() {
+function createServer(config: any) {
   const server = new McpServer({
-    name: "character-counter-server",
+    name: "example-server",
     version: "1.0.0",
   });
 
-  // Add character counter tool
-  server.tool("count_characters", "Count occurrences of a specific character in text", {
-    text: z.string().describe("The text to search in"),
-    character: z.string().describe("The character to count (single character)")
-  }, async ({ text, character }) => {
-    // Count occurrences of the specific character (case insensitive)
-    const count = text.toLowerCase().split(character.toLowerCase()).length - 1;
+  // Add greet tool
+  server.tool("greet", "Greet someone by name", {
+    name: z.string().describe("Name to greet")
+  }, async ({ name }) => {
+    // Verify API key is provided
+    if (!config.apiKey) {
+      throw new Error("API key is required");
+    }
     
-    return { 
-      content: [{ 
-        type: "text", 
-        text: `The character "${character}" appears ${count} times in the text.` 
-      }] 
-    };
+    // Use config.apiKey for authentication/API calls
+    return { content: [{ type: "text", text: `Hello, ${name}! (authenticated with ${config.apiKey.substring(0, 8)}...)` }] };
   });
 
   return server;
@@ -49,7 +55,8 @@ function createServer() {
 // Handle MCP requests at /mcp endpoint
 app.all('/mcp', async (req: Request, res: Response) => {
   try {
-    const server = createServer();
+    const config = parseConfig(req);
+    const server = createServer(config);
     const transport = new StreamableHTTPServerTransport({
       sessionIdGenerator: undefined,
     });
