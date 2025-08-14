@@ -34,7 +34,6 @@ export default function createServer({
       
       // Count occurrences of the specific character (case insensitive)
       const count = text.toLowerCase().split(character.toLowerCase()).length - 1;
-      const debugInfo = config.debug ? ` (processed with API key ${config.apiKey.substring(0, 8)}...)` : "";
 
       return {
         content: [
