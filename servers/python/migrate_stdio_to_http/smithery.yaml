@@ -10,6 +10,6 @@ startCommand:
       apiKey:
         type: "string"
         description: "API key for accessing the Character Counter server (optional for demo)"
-    required: []
+    required: [] # add `apiKey` here to make it required
   exampleConfig:
     apiKey: "demo-key" 
