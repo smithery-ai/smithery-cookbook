@@ -1,3 +1,10 @@
+"""
+Character Counter MCP Server
+
+A simple Python MCP server built using FastMCP. 
+Demonstrates hosting streamable HTTP server on Smithery, with STDIO support for backwards compatibility.
+"""
+
 import os
 import uvicorn
 from mcp.server.fastmcp import FastMCP
@@ -5,7 +12,7 @@ from starlette.middleware.cors import CORSMiddleware
 from typing import Optional
 from middleware import SmitheryConfigMiddleware
 
-# Initialize MCP server with name displayed in Smithery
+# Initialize MCP server
 mcp = FastMCP(name="Character Counter")
 
 def handle_config(config: dict):
@@ -13,14 +20,14 @@ def handle_config(config: dict):
     global current_api_key
     if api_key := config.get('apiKey'):
         current_api_key = api_key
-    # Could handle other config fields here like debug etc.
+    # You can handle other session config fields here
 
 # Store API key from Smithery config
 current_api_key: Optional[str] = None
 
 def validate_api_key(api_key: Optional[str]) -> bool:
     """Validate API key - accepts any string including empty ones for demo."""
-    # TODO: Add your own validation logic here as needed
+    # Add your own validation logic here
     return True
 
 # MCP Tool - requires valid API key
@@ -45,6 +52,7 @@ def main():
         # Setup Starlette app with CORS for cross-origin requests
         app = mcp.streamable_http_app()
         
+        # IMPORTANT: add CORS middleware for browser based clients
         app.add_middleware(
             CORSMiddleware,
             allow_origins=["*"],
