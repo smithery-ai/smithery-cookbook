@@ -49,7 +49,7 @@ See the complete guide: https://smithery.ai/docs/migrations/python-custom-contai
    npx @smithery/cli playground --port 8080
    ```
 
-   <img src="../../../public/smithery_playground.png" alt="Smithery Playground" width="400">
+   <img src="../../../public/smithery_playground.png" alt="Smithery Playground" width="800">
 
 4. **Deploy your own version:**
    To deploy your own MCP server:
