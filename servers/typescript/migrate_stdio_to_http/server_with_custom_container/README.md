@@ -1,13 +1,11 @@
 # TypeScript MCP Server with Custom Container
 
-A simple TypeScript MCP server built using the official [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) to demonstrate hosting on Smithery with custom docker containers.
-
-This server is designed to run both locally (STDIO transport) and remotely via Smithery (HTTP transport).
+A simple TypeScript MCP server built using the official [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) and custom Docker container. This example demonstrates how you can host HTTP servers on Smithery using custom containers, with STDIO support for backwards compatibility.
 
 ## Features:
 
-- **CORS**: Pre-configured CORS headers for browser-based MCP clients
-- **Smithery Session Configuration**: handles base64-encoded JSON configuration passed via query parameters
+- **CORS**: CORS headers for browser-based MCP clients
+- **Smithery Session Configuration**: handles user's session configuration passed via Smithery
 - **Request Logging Middleware**: Custom middleware for debugging HTTP requests and responses
 - **Server Transport**: Can run with both STDIO and HTTP transports using `TRANSPORT` env variable
 

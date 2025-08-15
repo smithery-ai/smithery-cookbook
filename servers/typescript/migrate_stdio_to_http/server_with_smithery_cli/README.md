@@ -6,7 +6,7 @@ A simple Typescript MCP server built using the official [MCP Typescript SDK](htt
 
 - **Smithery CLI**: Uses `@smithery/cli` for compiling your server and launching interactive playground
 - **Smithery Session Configuration**: handles user's session configuration passed via Smithery
-- **HTTP Transport**: Runs as an HTTP server with interactive playground support
+- **HTTP Transport**: Can run with both STDIO and HTTP transports using TRANSPORT env variable
 
 ## Prerequisites
 
