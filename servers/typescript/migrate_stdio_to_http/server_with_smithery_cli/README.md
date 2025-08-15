@@ -1,6 +1,6 @@
 # TypeScript MCP Server with Smithery CLI
 
-A simple Typescript MCP server built using the official [MCP Typescript SDK](https://github.com/modelcontextprotocol/typescript-sdk) and [smithery/cli](https://github.com/smithery-ai/cli). This server demonstrates how you can host streamable HTTP servers on Smithery, with STDIO support for backwards compatibility.
+A simple Typescript MCP server built using the official [MCP Typescript SDK](https://github.com/modelcontextprotocol/typescript-sdk) and [smithery/cli](https://github.com/smithery-ai/cli). This example demonstrates how you can host streamable HTTP servers on Smithery, with STDIO support for backwards compatibility.
 
 ## Features:
 
