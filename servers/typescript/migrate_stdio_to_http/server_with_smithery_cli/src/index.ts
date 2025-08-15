@@ -49,7 +49,7 @@ export default function createServer({
   return server.server;
 }
 
-// Optional: if you need backward compatibility, start the server with stdio transport by default
+// Optional: if you need backward compatibility, add stdio transport
 // You can publish this to npm for users to run this locally
 async function main() {
   // Check if API key is provided
@@ -67,7 +67,7 @@ async function main() {
   await server.connect(transport);
 }
 
-// By default the server with stdio transport
+// By default, the server starts with stdio transport
 main().catch((error) => {
   console.error("Server error:", error);
   process.exit(1);

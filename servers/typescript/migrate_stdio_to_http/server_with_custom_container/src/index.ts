@@ -37,7 +37,7 @@ function parseConfig(req: Request) {
 
 function validateApiKey(apiKey?: string): boolean {
   // Validate API key - accepts any string including empty ones for demo
-  // TODO: Add your own validation logic here as needed
+  // Add your own validation logic here as needed
   return true;
 }
 
@@ -121,10 +121,15 @@ app.all('/mcp', async (req: Request, res: Response) => {
 
 // Main function to start the server in the appropriate mode
 async function main() {
-  const transport = process.env.TRANSPORT || 'http';
+  const transport = process.env.TRANSPORT || 'stdio';
   
-  if (transport === 'stdio') {
-    // Run in stdio mode
+  if (transport === 'http') {
+    // Run in HTTP mode
+    app.listen(PORT, () => {
+      console.log(`MCP HTTP Server listening on port ${PORT}`);
+    });
+  } else {
+    // Optional: if you need backward compatibility, add stdio transport
     const apiKey = process.env.API_KEY;
     // API key optional for demo
 
@@ -139,11 +144,6 @@ async function main() {
     const stdioTransport = new StdioServerTransport();
     await server.connect(stdioTransport);
     console.error("MCP Server running in stdio mode");
-  } else {
-    // Run in HTTP mode (default)
-    app.listen(PORT, () => {
-      console.log(`MCP HTTP Server listening on port ${PORT}`);
-    });
   }
 }
 

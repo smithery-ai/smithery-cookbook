@@ -73,7 +73,8 @@ def main():
         uvicorn.run(app, host="0.0.0.0", port=port, log_level="debug")
     
     else:
-        # Stdio mode - get API key from environment variable (optional)
+        # Optional: if you need backward compatibility, add stdio transport
+        # You can publish this to uv for users to run locally
         print("Character Counter MCP Server starting in stdio mode...")
         
         api_key = os.getenv("API_KEY")

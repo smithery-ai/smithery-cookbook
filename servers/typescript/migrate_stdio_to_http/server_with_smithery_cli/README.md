@@ -1,8 +1,6 @@
 # TypeScript MCP Server with Smithery CLI
 
-A simple TypeScript MCP server to demonstrate hosting on Smithery using the Smithery CLI.
-
-This server is designed to run both locally (STDIO transport) and remotely via Smithery (HTTP transport).
+A simple Typescript MCP server built using the official MCP TS SDK and smithery/cli. This server demonstrates how you can host streamable HTTP servers on Smithery, with STDIO support for backwards compatibility.
 
 ## Features:
 
@@ -35,7 +33,7 @@ This server is designed to run both locally (STDIO transport) and remotely via S
    API_KEY=your-api-key npm run start:stdio
    ```
 
-   **HTTP Mode:**
+   **HTTP Mode (automatically launches Smithery playground for interactive testing):**
    ```bash
    npm run dev
    ```
