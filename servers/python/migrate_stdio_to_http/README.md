@@ -1,6 +1,8 @@
 # Python MCP Server with FastMCP
 
-A simple Python MCP server built using FastMCP. This server demonstrates how you can host streamable HTTP servers on Smithery, with STDIO support for backwards compatibility.
+A simple Python MCP server built using FastMCP. This example demonstrates how you can host streamable HTTP servers on Smithery, with STDIO support for backwards compatibility.
+
+See the cookbook: https://smithery.ai/docs/migrations/python-custom-container
 
 ## Features:
 
