@@ -1,3 +1,12 @@
+/**
+ * Character Counter MCP Server
+ * 
+ * A TypeScript MCP server demonstrating migration from STDIO to HTTP transport.
+ * Shows how to host a streamable HTTP server on Smithery using @smithery/cli with backwards compatibility.
+ * 
+ * See the cookbook: https://smithery.ai/docs/migrations/typescript-custom-container
+ */
+
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";

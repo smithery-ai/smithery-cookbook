@@ -1,8 +1,10 @@
 """
 Character Counter MCP Server
 
-A simple Python MCP server built using FastMCP. 
-Demonstrates hosting streamable HTTP server on Smithery, with STDIO support for backwards compatibility.
+A Python MCP server demonstrating migration from STDIO to HTTP transport.
+Shows how to host a streamable HTTP server on Smithery with backwards compatibility.
+
+See the cookbook: https://smithery.ai/docs/migrations/python-custom-container
 """
 
 import os
