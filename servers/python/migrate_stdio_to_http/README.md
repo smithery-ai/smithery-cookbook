@@ -14,6 +14,7 @@ See the complete guide: https://smithery.ai/docs/migrations/python-custom-contai
 
 - Python 3.12 or higher
 - uv package manager
+- npx (optional, to launch smithery playground)
 
 ## Project Structure
 
@@ -47,6 +48,8 @@ See the complete guide: https://smithery.ai/docs/migrations/python-custom-contai
    ```bash
    npx @smithery/cli playground --port 8080
    ```
+
+   ![Smithery Playground](../../../public/smithery_playground.png)
 
 4. **Deploy your own version:**
    To deploy your own MCP server:
