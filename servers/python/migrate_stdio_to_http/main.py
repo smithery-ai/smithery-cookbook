@@ -4,7 +4,7 @@ Character Counter MCP Server
 A Python MCP server demonstrating migration from STDIO to HTTP transport.
 Shows how to host a streamable HTTP server on Smithery with backwards compatibility.
 
-See the cookbook: https://smithery.ai/docs/migrations/python-custom-container
+See the full guide: https://smithery.ai/docs/migrations/python-custom-container
 """
 
 import os
