@@ -1,3 +1,12 @@
+/**
+ * Character Counter MCP Server
+ * 
+ * A TypeScript MCP server demonstrating migration from STDIO to HTTP transport.
+ * Shows how to host a streamable HTTP server on Smithery using custom conatiners with backwards compatibility.
+ * 
+ * See the full guide: https://smithery.ai/docs/migrations/typescript-custom-container
+ */
+
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -16,8 +25,8 @@ const PORT = process.env.PORT || 8080;
 
 // CORS configuration for browser-based MCP clients
 app.use(cors({
-  origin: '*', // Configure appropriately for production
-  exposedHeaders: ['Mcp-Session-Id'],
+  origin: '*',
+  exposedHeaders: ['mcp-Session-Id', 'mcp-protocol-version'],
   allowedHeaders: ['Content-Type', 'mcp-session-id'],
 }));
 
@@ -37,7 +46,7 @@ function parseConfig(req: Request) {
 
 function validateApiKey(apiKey?: string): boolean {
   // Validate API key - accepts any string including empty ones for demo
-  // TODO: Add your own validation logic here as needed
+  // Add your own validation logic here as needed
   return true;
 }
 
@@ -121,10 +130,15 @@ app.all('/mcp', async (req: Request, res: Response) => {
 
 // Main function to start the server in the appropriate mode
 async function main() {
-  const transport = process.env.TRANSPORT || 'http';
+  const transport = process.env.TRANSPORT || 'stdio';
   
-  if (transport === 'stdio') {
-    // Run in stdio mode
+  if (transport === 'http') {
+    // Run in HTTP mode
+    app.listen(PORT, () => {
+      console.log(`MCP HTTP Server listening on port ${PORT}`);
+    });
+  } else {
+    // Optional: if you need backward compatibility, add stdio transport
     const apiKey = process.env.API_KEY;
     // API key optional for demo
 
@@ -139,11 +153,6 @@ async function main() {
     const stdioTransport = new StdioServerTransport();
     await server.connect(stdioTransport);
     console.error("MCP Server running in stdio mode");
-  } else {
-    // Run in HTTP mode (default)
-    app.listen(PORT, () => {
-      console.log(`MCP HTTP Server listening on port ${PORT}`);
-    });
   }
 }
 

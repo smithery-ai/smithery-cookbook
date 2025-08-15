@@ -1,3 +1,12 @@
+/**
+ * Character Counter MCP Server
+ * 
+ * A TypeScript MCP server demonstrating migration from STDIO to HTTP transport.
+ * Shows how to host a streamable HTTP server on Smithery using @smithery/cli with backwards compatibility.
+ * 
+ * See the full guide: https://smithery.ai/docs/migrations/typescript-custom-container
+ */
+
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
@@ -49,7 +58,7 @@ export default function createServer({
   return server.server;
 }
 
-// Optional: if you need backward compatibility, start the server with stdio transport by default
+// Optional: if you need backward compatibility, add stdio transport
 // You can publish this to npm for users to run this locally
 async function main() {
   // Check if API key is provided
@@ -67,7 +76,7 @@ async function main() {
   await server.connect(transport);
 }
 
-// By default the server with stdio transport
+// By default, the server starts with stdio transport
 main().catch((error) => {
   console.error("Server error:", error);
   process.exit(1);
