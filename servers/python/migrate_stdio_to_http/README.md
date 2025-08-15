@@ -1,12 +1,10 @@
 # Python MCP Server with FastMCP
 
-A simple Python MCP server built using FastMCP to demonstrate hosting remote servers on Smithery with custom docker containers.
-
-This server is designed to run both locally (STDIO transport) and remotely via Smithery (HTTP transport).
+A simple Python MCP server built using FastMCP. This server demonstrates how you can host streamable HTTP servers on Smithery, with STDIO support for backwards compatibility.
 
 ## Features:
 
-- **CORS**: CORS headers for browser-based MCP client compatibility
+- **CORS**: CORS headers for browser-based MCP clients
 - **Smithery Session Configuration**: handles base64-encoded JSON configuration passed via query parameters
 - **Server Transport**: Can run with both STDIO and HTTP transports using `TRANSPORT` env variable
 
@@ -43,7 +41,7 @@ This server is designed to run both locally (STDIO transport) and remotely via S
    ```
 
 3. **Test interactively:**
-   Once your server is running in HTTP mode, you can test it interactively using the Smithery playground:
+   Once your server is running in HTTP mode, you can test it interactively using the Smithery playground (set port to match your server):
    ```bash
    npx @smithery/cli playground --port 8080
    ```
