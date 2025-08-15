@@ -2,12 +2,12 @@
 
 A simple Python MCP server built using FastMCP. This example demonstrates how you can host streamable HTTP servers on Smithery, with STDIO support for backwards compatibility.
 
-See the cookbook: https://smithery.ai/docs/migrations/python-custom-container
+See the complete guide: https://smithery.ai/docs/migrations/python-custom-container
 
 ## Features:
 
 - **CORS**: CORS headers for browser-based MCP clients
-- **Smithery Session Configuration**: handles base64-encoded JSON configuration passed via query parameters
+- **Smithery Session Configuration**: handles JSON session configuration passed via query parameters ([learn more](https://smithery.ai/docs/build/session-config))
 - **Server Transport**: Can run with both STDIO and HTTP transports using `TRANSPORT` env variable
 
 ## Prerequisites
