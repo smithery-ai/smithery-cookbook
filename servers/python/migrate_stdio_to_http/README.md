@@ -18,7 +18,7 @@ See the complete guide: https://smithery.ai/docs/migrations/python-custom-contai
 ## Project Structure
 
 - `main.py` - Main FastAPI server with MCP HTTP transport
-- `middleware/__init__.py` - Custom middleware to extract config
+- `middleware/__init__.py` - Custom middleware to extract session configuration
 - `pyproject.toml` - Python dependencies and project configuration
 - `smithery.yaml` - Smithery deployment configuration
 - `Dockerfile` - Dockerfile to host server in Smithery
