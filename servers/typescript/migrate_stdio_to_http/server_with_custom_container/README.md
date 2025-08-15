@@ -13,7 +13,7 @@ This server is designed to run both locally (STDIO transport) and remotely via S
 
 ## Prerequisites
 
-- Node.js 18 or higher
+- Node.js 22 or higher
 - npm package manager
 
 ## Project Structure
