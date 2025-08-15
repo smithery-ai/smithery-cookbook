@@ -4,6 +4,8 @@ A simple Python MCP server built using the official [MCP Python SDK](https://git
 
 See the complete guide: https://smithery.ai/docs/migrations/python-custom-container
 
+**[Try it live on Smithery](https://smithery.ai/server/@smithery-ai/cookbook-py-custom-container)**
+
 ## Features:
 
 - **CORS**: CORS headers for browser-based MCP clients
