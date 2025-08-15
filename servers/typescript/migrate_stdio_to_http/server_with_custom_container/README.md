@@ -34,11 +34,7 @@ A simple TypeScript MCP server built using the official [MCP TypeScript SDK](htt
    ```bash
    npm run dev
    ```
-
-   **STDIO Mode (default):**
-   ```bash
-   npm run start:stdio
-   ```
+   This will start the server on port 8080.
 
 3. **Test interactively:**
    Once your server is running in HTTP mode, you can test it interactively using the Smithery playground:
