@@ -37,15 +37,15 @@ To make the most of the examples in this cookbook, you'll need:
 ## Table of Recipes
 
 ### Python Servers
-- **[FastMCP Quickstart](servers/python/quickstart/)** - Basic MCP server with a simple greeting tool
-- **[FastMCP Advanced](servers/python/server_with_session_config/)** - Advanced server with API key authentication and multiple text processing tools
-- **[Migrate STDIO to HTTP](servers/python/migrate_stdio_to_http/)** - Python MCP server with both STDIO and HTTP transport support, CORS, and session configuration
+- **[FastMCP Quickstart](servers/python/quickstart/)** - Basic server with greeting tool
+- **[FastMCP Advanced](servers/python/server_with_session_config/)** - Server with session configuration
+- **[Migrate STDIO to HTTP](servers/python/migrate_stdio_to_http/)** - Server with custom Docker container
 
 ### TypeScript Servers
-- **[TypeScript Quickstart](servers/typescript/quickstart/)** - Simple MCP server with character counting tool and prompt template
-- **[TypeScript Session Config](servers/typescript/server_with_session_config/)** - TypeScript server with session configuration and character counting
-- **[Migrate STDIO to HTTP - Custom Container](servers/typescript/migrate_stdio_to_http/server_with_custom_container/)** - TypeScript server with custom Docker container, Express, and dual transport support
-- **[Migrate STDIO to HTTP - Smithery CLI](servers/typescript/migrate_stdio_to_http/server_with_smithery_cli/)** - TypeScript server using Smithery CLI for compilation and interactive playground
+- **[TypeScript Quickstart](servers/typescript/quickstart/)** - Simple server with character counting tool
+- **[TypeScript Session Config](servers/typescript/server_with_session_config/)** - Server with session configuration
+- **[Migrate STDIO to HTTP - Smithery CLI](servers/typescript/migrate_stdio_to_http/server_with_smithery_cli/)** - Server using Smithery CLI
+- **[Migrate STDIO to HTTP - Custom Container](servers/typescript/migrate_stdio_to_http/server_with_custom_container/)** - Server with custom Docker container
 
 ## Development Workflow
 
