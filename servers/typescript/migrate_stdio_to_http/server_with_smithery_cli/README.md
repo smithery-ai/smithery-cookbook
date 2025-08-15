@@ -38,6 +38,8 @@ A simple Typescript MCP server built using the official MCP TS SDK and smithery/
    npm run dev
    ```
 
+   <img src="../../../../public/smithery_playground.png" alt="Smithery Playground" width="800">
+
 3. **Deploy your own version:**
    To deploy your own MCP server:
    - Connect your repository at [https://smithery.ai/new](https://smithery.ai/new)

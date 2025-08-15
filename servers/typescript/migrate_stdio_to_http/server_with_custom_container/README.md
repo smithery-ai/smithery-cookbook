@@ -48,6 +48,8 @@ This server is designed to run both locally (STDIO transport) and remotely via S
    npx @smithery/cli playground --port 8080
    ```
 
+   <img src="../../../../public/smithery_playground.png" alt="Smithery Playground" width="800">
+
 4. **Deploy your own version:**
    To deploy your own MCP server:
    - Connect your repository at [https://smithery.ai/new](https://smithery.ai/new)
