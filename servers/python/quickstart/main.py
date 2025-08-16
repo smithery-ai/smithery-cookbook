@@ -3,9 +3,9 @@ import uvicorn
 from mcp.server.fastmcp import FastMCP
 from starlette.middleware.cors import CORSMiddleware
 
-mcp = FastMCP(name="MyServer")
+mcp = FastMCP(name="Say Hello")
 
-@mcp.tool
+@mcp.tool()
 def greet(name: str) -> str:
     """Greet a user by name."""
     return f"Hello, {name}!"
@@ -33,5 +33,5 @@ if __name__ == "__main__":
         app,
         host="0.0.0.0",  # Listen on all interfaces for containerized deployment
         port=port,
-        log_level="info"
+        log_level="debug"
     )
