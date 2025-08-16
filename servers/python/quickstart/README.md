@@ -1,6 +1,6 @@
 # FastMCP Quickstart for Smithery
 
-A simple example of creating an MCP (Model Context Protocol) server using FastMCP with Python, designed to work with Smithery.
+A simple example of creating an MCP server using FastMCP and Python, designed to work with Smithery.
 
 ## What This Does
 
@@ -10,7 +10,7 @@ This server provides a single tool called `greet` that takes a name and returns 
 
 - Python 3.12 or higher
 - [uv](https://docs.astral.sh/uv/) package manager
-- Node.js (for Smithery CLI and playground)
+- Node.js and npx (for Smithery CLI and playground)
 
 ## Quick Start
 
@@ -25,20 +25,21 @@ This server provides a single tool called `greet` that takes a name and returns 
    ```
 
 3. **Test it's working:**
-   The server will start on `http://127.0.0.1:8080`
+   The server will start on `http://localhost:8000`
    
    You should see output like:
    ```
-   INFO:     Started server process [12345]
-   INFO:     Waiting for application startup.
-   INFO:     Application startup complete.
-   INFO:     Uvicorn running on http://127.0.0.1:8080 (Press CTRL+C to quit)
+INFO:     Started server process [50043]
+INFO:     Waiting for application startup.
+[08/16/25 16:51:39] INFO     StreamableHTTP session manager started
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
    ```
 
 4. **Launch Smithery Playground:**
    In a new terminal, launch the interactive Smithery playground:
    ```bash
-   npx -y @smithery/cli playground --port 8080
+   npx -y @smithery/cli playground --port 8000
    ```
    
    This will open a web interface where you can:
@@ -46,6 +47,8 @@ This server provides a single tool called `greet` that takes a name and returns 
    - Test the `greet` tool with different inputs
    - See the complete request/response flow
    - Debug and iterate on your MCP tools quickly
+
+   <img src="../../../public/smithery_playground.png" alt="Smithery Playground" width="800">
 
 5. **Deploy to Smithery:**
    To deploy your MCP server:
