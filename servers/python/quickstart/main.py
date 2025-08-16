@@ -26,7 +26,7 @@ if __name__ == "__main__":
     )
 
     # Use PORT environment variable
-    port = int(os.environ.get("PORT", 8000))
+    port = int(os.environ.get("PORT", 8080))
 
     # Run the MCP server with HTTP transport using uvicorn
     uvicorn.run(
