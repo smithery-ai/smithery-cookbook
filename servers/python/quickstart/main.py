@@ -10,19 +10,6 @@ def greet(name: str) -> str:
     """Greet a user by name."""
     return f"Hello, {name}!"
 
-# Workaround for Starlette Mount trailing slash behavior (issue #869)
-# https://github.com/encode/starlette/issues/869
-# Create middleware that modifies the path scope to add trailing slash
-class MCPPathRedirect:
-    def __init__(self, app):
-        self.app = app
-
-    async def __call__(self, scope, receive, send):
-        if scope.get('type') == 'http' and scope.get('path') == '/mcp':
-            scope['path'] = '/mcp/'
-            scope['raw_path'] = b'/mcp/'
-        await self.app(scope, receive, send)
-
 if __name__ == "__main__":
     # Get the Starlette app and add CORS middleware
     app = mcp.streamable_http_app()
@@ -34,15 +21,12 @@ if __name__ == "__main__":
         allow_credentials=True,
         allow_methods=["GET", "POST", "OPTIONS"],
         allow_headers=["*"],
-        expose_headers=["mcp-session-id"],  # Allow client to read session ID
+        expose_headers=["mcp-session-id", "mcp-protocol-version"],  # Allow client to read session ID
         max_age=86400,
     )
 
-    # Apply the MCPPathRedirect middleware to prevent auto-redirect
-    app = MCPPathRedirect(app)
-
-    # Use PORT environment variable (required by Smithery)
-    port = int(os.environ.get("PORT", 8080))
+    # Use PORT environment variable
+    port = int(os.environ.get("PORT", 8000))
 
     # Run the MCP server with HTTP transport using uvicorn
     uvicorn.run(
