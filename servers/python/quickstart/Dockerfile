@@ -26,8 +26,8 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 ENV PATH="/app/.venv/bin:$PATH"
 
 # Set port
-ENV PORT=8000
-EXPOSE 8000
+ENV PORT=8081
+EXPOSE 8081
 
 # Reset the entrypoint, don't invoke `uv`
 ENTRYPOINT []

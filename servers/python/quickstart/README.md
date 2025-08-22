@@ -25,21 +25,12 @@ This server provides a single tool called `greet` that takes a name and returns 
    ```
 
 3. **Test it's working:**
-   The server will start on `http://localhost:8000`
-   
-   You should see output like:
-   ```
-INFO:     Started server process [50043]
-INFO:     Waiting for application startup.
-[08/16/25 16:51:39] INFO     StreamableHTTP session manager started
-INFO:     Application startup complete.
-INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-   ```
+   The server will start on `http://localhost:8081`
 
 4. **Launch Smithery Playground:**
    In a new terminal, launch the interactive Smithery playground:
    ```bash
-   npx -y @smithery/cli playground --port 8000
+   npx -y @smithery/cli playground --port 8081
    ```
    
    This will open a web interface where you can:
