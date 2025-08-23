@@ -17,7 +17,7 @@ This server provides a single tool called `greet` that takes a name and returns 
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/smithery-ai/smithery-cookbook.git
-   cd servers/python/quickstart
+   cd smithery-cookbook/servers/python/quickstart
    ```
 
 2. **Install Smithery CLI (optional, for playground testing):**
@@ -50,7 +50,16 @@ This server provides a single tool called `greet` that takes a name and returns 
    - See the complete request/response flow
    - Debug and iterate on your MCP tools quickly
 
-7. **Deploy to Smithery:**
+7. **Add Smithery session configuration (optional):**
+   
+   This step has three parts to add session-based configuration handling:
+   - Part A: Add config validation function
+   - Part B: Update the tool to use config validation
+   - Part C: Test with configuration
+   
+   *Skip to step 8 if you don't need session configuration.*
+
+8. **Deploy to Smithery:**
    To deploy your MCP server:
    - Push your code to GitHub (make sure to include the `smithery.yaml` and `Dockerfile`)
    - Connect your repository at [https://smithery.ai/new](https://smithery.ai/new)
