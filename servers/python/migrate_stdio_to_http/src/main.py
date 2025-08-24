@@ -44,17 +44,23 @@ def get_request_config() -> dict:
             return request.scope.get('smithery_config', {})
     except:
         pass
+    
+    # Return empty dict if no config found
+    return {}
 
 def get_config_value(key: str, default=None):
     """Get a specific config value from current request."""
     config = get_request_config()
+    # Handle case where config might be None
+    if config is None:
+        config = {}
     return config.get(key, default)
 
 def validate_server_access(server_token: Optional[str]) -> bool:
-    """Validate server token - accepts any string including empty ones for demo."""
+    """Validate server token - accepts any token for demo purposes."""
     # In a real app, you'd validate against your server's auth system
-    # For demo purposes, we accept any non-empty token
-    return server_token is not None and len(server_token.strip()) > 0 if server_token else True
+    # For demo purposes, we always return True
+    return True
 
 # MCP Tool - demonstrates per-request config access
 @mcp.tool()
@@ -113,8 +119,9 @@ def main():
         print("Character Counter MCP Server starting in stdio mode...")
         
         server_token = os.getenv("SERVER_TOKEN")
-        # Set the server token for stdio mode (can be None)
-        handle_config({"serverToken": server_token})
+        case_sensitive = os.getenv("CASE_SENSITIVE", "false").lower() == "true"
+        # Set the server token and case sensitivity for stdio mode
+        handle_config({"serverToken": server_token, "caseSensitive": case_sensitive})
         
         # Run with stdio transport (default)
         mcp.run()
