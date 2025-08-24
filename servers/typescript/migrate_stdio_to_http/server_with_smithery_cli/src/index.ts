@@ -4,7 +4,7 @@
  * A TypeScript MCP server demonstrating migration from STDIO to HTTP transport.
  * Shows how to host a streamable HTTP server on Smithery using @smithery/cli with backwards compatibility.
  * 
- * See the full guide: https://smithery.ai/docs/migrations/typescript-custom-container
+ * See the full guide: https://smithery.ai/docs/migrations/typescript-with-smithery-cli
  */
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
