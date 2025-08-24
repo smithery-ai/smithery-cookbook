@@ -3,9 +3,8 @@ import base64
 from urllib.parse import parse_qs, unquote
 
 class SmitheryConfigMiddleware:
-    def __init__(self, app, config_callback=None):
+    def __init__(self, app):
         self.app = app
-        self.config_callback = config_callback
 
     async def __call__(self, scope, receive, send):
         if scope.get('type') == 'http':
@@ -18,10 +17,6 @@ class SmitheryConfigMiddleware:
                     
                     # Inject full config into request scope for per-request access
                     scope['smithery_config'] = config
-                    
-                    # Still call the callback if provided (for backwards compatibility)
-                    if self.config_callback:
-                        self.config_callback(config)
                 except Exception as e:
                     print(f"SmitheryConfigMiddleware: Error parsing config: {e}")
                     scope['smithery_config'] = {}

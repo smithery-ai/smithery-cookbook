@@ -20,13 +20,13 @@ mcp = FastMCP(name="Character Counter")
 
 def handle_config(config: dict):
     """Handle configuration from Smithery - for backwards compatibility with stdio mode."""
-    global _stdio_server_token
+    global _server_token
     if server_token := config.get('serverToken'):
-        _stdio_server_token = server_token
+        _server_token = server_token
     # You can handle other session config fields here
 
 # Store server token only for stdio mode (backwards compatibility)
-_stdio_server_token: Optional[str] = None
+_server_token: Optional[str] = None
 
 def get_request_config() -> dict:
     """Get full config from current request context."""
@@ -40,9 +40,6 @@ def get_request_config() -> dict:
             return request.scope.get('smithery_config', {})
     except:
         pass
-    
-    # Fallback to stdio mode config
-    return {"serverToken": _stdio_server_token} if _stdio_server_token else {}
 
 def get_config_value(key: str, default=None):
     """Get a specific config value from current request."""
@@ -61,8 +58,6 @@ def count_characters(text: str, character: str) -> str:
     """Count occurrences of a specific character in text"""
     # Example: Get various config values that users can pass to your server session
     server_token = get_config_value("serverToken")
-    user_name = get_config_value("userName") 
-    case_sensitive = get_config_value("caseSensitive", False)
     max_length = get_config_value("maxTextLength", 1000)
     
     # Validate server access (your custom validation logic)
@@ -73,14 +68,11 @@ def count_characters(text: str, character: str) -> str:
     if len(text) > max_length:
         raise ValueError(f"Text too long. Maximum length is {max_length} characters.")
     
-    # Count occurrences based on case sensitivity preference
-    if case_sensitive:
-        count = text.count(character)
-    else:
-        count = text.lower().count(character.lower())
+    # Count occurrences
+    count = text.lower().count(character.lower())
     
     # Personalized response using config
-    return f'Hello {user_name}! The character "{character}" appears {count} times in the text (case {"sensitive" if case_sensitive else "insensitive"} search).'
+    return f'The character "{character}" appears {count} times in the text.'
 
 def main():
     transport_mode = os.getenv("TRANSPORT", "stdio")
@@ -103,11 +95,11 @@ def main():
             max_age=86400,
         )
 
-        # Apply custom middleware for config extraction (per-request API key handling)
+        # Apply custom middleware for session config extraction
         app = SmitheryConfigMiddleware(app)
 
         # Use Smithery-required PORT environment variable
-        port = int(os.environ.get("PORT", 8080))
+        port = int(os.environ.get("PORT", 8081))
         print(f"Listening on port {port}")
 
         uvicorn.run(app, host="0.0.0.0", port=port, log_level="debug")
