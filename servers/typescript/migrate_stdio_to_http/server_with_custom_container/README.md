@@ -4,7 +4,7 @@ A simple TypeScript MCP server built using the official [MCP TypeScript SDK](htt
 
 See the complete guide: https://smithery.ai/docs/migrations/typescript-custom-container
 
-** [Try it live on Smithery](https://smithery.ai/server/@smithery-ai/cookbook-ts-custom-container)**
+**[Try it live on Smithery](https://smithery.ai/server/@smithery-ai/cookbook-ts-custom-container)**
 
 ## Features:
 
