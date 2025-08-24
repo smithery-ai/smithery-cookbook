@@ -11,7 +11,6 @@ import os
 import uvicorn
 from mcp.server.fastmcp import FastMCP
 from starlette.middleware.cors import CORSMiddleware
-from starlette.requests import Request
 from typing import Optional
 from middleware import SmitheryConfigMiddleware
 
