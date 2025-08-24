@@ -71,7 +71,6 @@ def count_characters(text: str, character: str) -> str:
     # Count occurrences
     count = text.lower().count(character.lower())
     
-    # Personalized response using config
     return f'The character "{character}" appears {count} times in the text.'
 
 def main():
