@@ -26,7 +26,7 @@ To make the most of the examples in this cookbook, you'll need:
 
 3. **Test with Smithery Playground:**
    ```bash
-   npx @smithery/cli playground --port 8080
+   npx @smithery/cli playground --port 8081
    ```
    
    *Note: Replace `8080` with the port your server is running on*
