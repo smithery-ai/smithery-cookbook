@@ -38,12 +38,12 @@ See the complete guide: https://smithery.ai/docs/migrations/typescript-custom-co
    ```bash
    npm run dev
    ```
-   This will start the server on port 8080.
+   This will start the server on port 8081.
 
 3. **Test interactively:**
    Once your server is running in HTTP mode, you can test it interactively using the Smithery playground:
    ```bash
-   npx @smithery/cli playground --port 8080
+   npx -y @smithery/cli playground --port 8081
    ```
 
    <img src="../../../../public/smithery_playground.png" alt="Smithery Playground" width="800">

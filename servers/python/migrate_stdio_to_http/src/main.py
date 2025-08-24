@@ -57,18 +57,18 @@ def count_characters(text: str, character: str) -> str:
     """Count occurrences of a specific character in text"""
     # Example: Get various config values that users can pass to your server session
     server_token = get_config_value("serverToken")
-    max_length = get_config_value("maxTextLength", 1000)
+    case_sensitive = get_config_value("caseSensitive", False)
     
     # Validate server access (your custom validation logic)
     if not validate_server_access(server_token):
         raise ValueError("Server access validation failed. Please provide a valid serverToken.")
     
     # Apply user preferences from config
-    if len(text) > max_length:
-        raise ValueError(f"Text too long. Maximum length is {max_length} characters.")
+    search_text = text if case_sensitive else text.lower()
+    search_char = character if case_sensitive else character.lower()
     
     # Count occurrences
-    count = text.lower().count(character.lower())
+    count = search_text.count(search_char)
     
     return f'The character "{character}" appears {count} times in the text.'
 

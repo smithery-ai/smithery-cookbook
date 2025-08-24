@@ -7,10 +7,10 @@ startCommand:
   configSchema:
     type: "object"
     properties:
-      apiKey:
-        type: "string"
-        description: "Any API key for accessing the Text Utils server"
-        minLength: 1
-    required: ["apiKey"]
+      caseSensitive:
+        type: "boolean"
+        description: "Whether character matching should be case sensitive"
+        default: false
+    required: []
   exampleConfig:
-    apiKey: "demo-key" 
+    caseSensitive: false 
