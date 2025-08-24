@@ -146,12 +146,13 @@ async function main() {
   } else {
     // Optional: if you need backward compatibility, add stdio transport
     const serverToken = process.env.SERVER_TOKEN;
+    const maxTextLength = parseInt(process.env.MAX_TEXT_LENGTH || '1000');
 
     // Create server with configuration
     const server = createServer({
       config: {
         serverToken,
-        maxTextLength: 1000,
+        maxTextLength,
       },
     });
 
