@@ -10,11 +10,11 @@ startCommand:
       serverToken:
         type: "string"
         description: "Server token for accessing the Character Counter server (optional for demo)"
-      maxTextLength:
-        type: "integer"
-        description: "Maximum allowed text length for character counting"
-        default: 1000
+      caseSensitive:
+        type: "boolean"
+        description: "Whether character matching should be case sensitive"
+        default: false
     required: [] # add `serverToken` here to make it required
   exampleConfig:
     serverToken: "demo-token"
-    maxTextLength: 1000 
+    caseSensitive: false 

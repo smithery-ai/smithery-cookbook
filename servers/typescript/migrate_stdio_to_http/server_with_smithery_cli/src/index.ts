@@ -14,8 +14,15 @@ import { z } from "zod";
 // Optional: Define session configuration for server
 // Learn more: https://smithery.ai/docs/build/session-config
 export const configSchema = z.object({
-  apiKey: z.string().describe("Your API key"), // for demonstration
+  serverToken: z.string().optional().describe("Server access token"),
+  caseSensitive: z.boolean().optional().default(false).describe("Whether character matching should be case sensitive"),
 });
+
+function validateServerAccess(serverToken?: string): boolean {
+  // Validate server token - accepts any string including empty ones for demo
+  // In a real app, you'd validate against your server's auth system
+  return serverToken !== undefined && serverToken.trim().length > 0 ? true : true;
+}
 
 export default function createServer({
   config,
@@ -36,13 +43,17 @@ export default function createServer({
     },
   },
     async ({ text, character }) => {
-      // Verify API key is provided
-      if (!config.apiKey) {
-        throw new Error("API key is required");
+      // Validate server access
+      if (!validateServerAccess(config.serverToken)) {
+        throw new Error("Server access validation failed. Please provide a valid serverToken.");
       }
       
-      // Count occurrences of the specific character (case insensitive)
-      const count = text.toLowerCase().split(character.toLowerCase()).length - 1;
+      // Apply user preferences from config
+      const searchText = config.caseSensitive ? text : text.toLowerCase();
+      const searchChar = config.caseSensitive ? character : character.toLowerCase();
+      
+      // Count occurrences of the specific character
+      const count = searchText.split(searchChar).length - 1;
 
       return {
         content: [
@@ -61,13 +72,15 @@ export default function createServer({
 // Optional: if you need backward compatibility, add stdio transport
 // You can publish this to npm for users to run this locally
 async function main() {
-  // Check if API key is provided
-  const apiKey = process.env.API_KEY || "";
+  // Get configuration from environment variables
+  const serverToken = process.env.SERVER_TOKEN;
+  const caseSensitive = process.env.CASE_SENSITIVE === 'true';
   
   // Create server with configuration
   const server = createServer({
     config: {
-      apiKey,
+      serverToken,
+      caseSensitive,
     },
   });
 

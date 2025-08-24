@@ -11,22 +11,26 @@ import os
 import uvicorn
 from mcp.server.fastmcp import FastMCP
 from starlette.middleware.cors import CORSMiddleware
-from starlette.requests import Request
 from typing import Optional
 from middleware import SmitheryConfigMiddleware
 
 # Initialize MCP server
 mcp = FastMCP(name="Character Counter")
 
+# Optional: Handle configuration for backwards compatibility with stdio mode
+# This function is only needed if you want to support stdio transport alongside HTTP
 def handle_config(config: dict):
     """Handle configuration from Smithery - for backwards compatibility with stdio mode."""
-    global _server_token
+    global _server_token, _case_sensitive
     if server_token := config.get('serverToken'):
         _server_token = server_token
+    if case_sensitive := config.get('caseSensitive'):
+        _case_sensitive = case_sensitive
     # You can handle other session config fields here
 
-# Store server token only for stdio mode (backwards compatibility)
+# Store server token and case sensitivity for stdio mode (backwards compatibility)
 _server_token: Optional[str] = None
+_case_sensitive: Optional[bool] = None
 
 def get_request_config() -> dict:
     """Get full config from current request context."""
@@ -58,18 +62,18 @@ def count_characters(text: str, character: str) -> str:
     """Count occurrences of a specific character in text"""
     # Example: Get various config values that users can pass to your server session
     server_token = get_config_value("serverToken")
-    max_length = get_config_value("maxTextLength", 1000)
+    case_sensitive = get_config_value("caseSensitive", False)
     
     # Validate server access (your custom validation logic)
     if not validate_server_access(server_token):
         raise ValueError("Server access validation failed. Please provide a valid serverToken.")
     
     # Apply user preferences from config
-    if len(text) > max_length:
-        raise ValueError(f"Text too long. Maximum length is {max_length} characters.")
+    search_text = text if case_sensitive else text.lower()
+    search_char = character if case_sensitive else character.lower()
     
     # Count occurrences
-    count = text.lower().count(character.lower())
+    count = search_text.count(search_char)
     
     return f'The character "{character}" appears {count} times in the text.'
 

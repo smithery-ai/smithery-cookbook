@@ -10,10 +10,10 @@ startCommand:
       serverToken:
         type: string
         description: Server access token
-      maxTextLength:
-        type: number
-        description: Maximum text length allowed
-        default: 1000
+      caseSensitive:
+        type: boolean
+        description: Whether character matching should be case sensitive
+        default: false
   exampleConfig:
     serverToken: "your-server-token"
-    maxTextLength: 1000
+    caseSensitive: false

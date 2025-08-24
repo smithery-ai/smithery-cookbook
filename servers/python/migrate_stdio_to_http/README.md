@@ -20,11 +20,12 @@ See the complete guide: https://smithery.ai/docs/migrations/python-custom-contai
 
 ## Project Structure
 
-- `main.py` - Main FastAPI server with MCP HTTP transport
-- `middleware/__init__.py` - Custom middleware to extract session configuration
+- `src/main.py` - Main FastAPI server with MCP HTTP transport
+- `src/middleware.py` - Custom middleware to extract session configuration
 - `pyproject.toml` - Python dependencies and project configuration
 - `smithery.yaml` - Smithery deployment configuration
 - `Dockerfile` - Dockerfile to host server in Smithery
+- `uv.lock` - Lockfile for Python dependencies
 
 ## Quick Start
 
@@ -48,7 +49,7 @@ See the complete guide: https://smithery.ai/docs/migrations/python-custom-contai
 3. **Test interactively:**
    Once your server is running in HTTP mode, you can test it interactively using the Smithery playground (set port to match your server):
    ```bash
-   npx @smithery/cli playground --port 8080
+   npx -y @smithery/cli playground --port 8080
    ```
 
    <img src="../../../public/smithery_playground.png" alt="Smithery Playground" width="800">

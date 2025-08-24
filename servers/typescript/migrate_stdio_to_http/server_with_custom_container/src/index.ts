@@ -18,7 +18,7 @@ import { logging } from "./middleware.js";
 // Optional: Define configuration schema to require configuration at connection time
 export const configSchema = z.object({
   serverToken: z.string().optional().describe("Server access token"),
-  maxTextLength: z.number().optional().default(1000).describe("Maximum text length allowed"),
+  caseSensitive: z.boolean().optional().default(false).describe("Whether character matching should be case sensitive"),
 });
 
 const app = express();
@@ -77,12 +77,11 @@ export default function createServer({
       }
       
       // Apply user preferences from config
-      if (text.length > config.maxTextLength) {
-        throw new Error(`Text too long. Maximum length is ${config.maxTextLength} characters.`);
-      }
+      const searchText = config.caseSensitive ? text : text.toLowerCase();
+      const searchChar = config.caseSensitive ? character : character.toLowerCase();
       
-      // Count occurrences of the specific character (case insensitive)
-      const count = text.toLowerCase().split(character.toLowerCase()).length - 1;
+      // Count occurrences of the specific character
+      const count = searchText.split(searchChar).length - 1;
 
       return {
         content: [
@@ -106,7 +105,7 @@ app.all('/mcp', async (req: Request, res: Response) => {
     // Validate and parse configuration
     const config = configSchema.parse({
       serverToken: rawConfig.serverToken || process.env.SERVER_TOKEN || undefined,
-      maxTextLength: rawConfig.maxTextLength || 1000,
+      caseSensitive: rawConfig.caseSensitive || false,
     });
     
     const server = createServer({ config });
@@ -146,13 +145,13 @@ async function main() {
   } else {
     // Optional: if you need backward compatibility, add stdio transport
     const serverToken = process.env.SERVER_TOKEN;
-    const maxTextLength = parseInt(process.env.MAX_TEXT_LENGTH || '1000');
+    const caseSensitive = process.env.CASE_SENSITIVE === 'true';
 
     // Create server with configuration
     const server = createServer({
       config: {
         serverToken,
-        maxTextLength,
+        caseSensitive,
       },
     });
 
