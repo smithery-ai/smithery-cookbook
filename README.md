@@ -29,7 +29,7 @@ To make the most of the examples in this cookbook, you'll need:
    npx @smithery/cli playground --port 8081
    ```
    
-   *Note: Replace `8080` with the port your server is running on*
+   *Note: Replace `8081` with the port your server is running on*
 
 4. **Deploy to Smithery (optional):**
    Ready to share your MCP server? [Deploy it here](https://smithery.ai/new) to host it on Smithery's platform.
