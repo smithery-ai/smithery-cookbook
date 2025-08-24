@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
+// Optional middleware for logging HTTP requests and responses
 export function logging(req: Request, res: Response, next: NextFunction) {
   const timestamp = new Date().toISOString();
   
