@@ -17,15 +17,20 @@ from middleware import SmitheryConfigMiddleware
 # Initialize MCP server
 mcp = FastMCP(name="Character Counter")
 
+# Optional: Handle configuration for backwards compatibility with stdio mode
+# This function is only needed if you want to support stdio transport alongside HTTP
 def handle_config(config: dict):
     """Handle configuration from Smithery - for backwards compatibility with stdio mode."""
-    global _server_token
+    global _server_token, _case_sensitive
     if server_token := config.get('serverToken'):
         _server_token = server_token
+    if case_sensitive := config.get('caseSensitive'):
+        _case_sensitive = case_sensitive
     # You can handle other session config fields here
 
-# Store server token only for stdio mode (backwards compatibility)
+# Store server token and case sensitivity for stdio mode (backwards compatibility)
 _server_token: Optional[str] = None
+_case_sensitive: Optional[bool] = None
 
 def get_request_config() -> dict:
     """Get full config from current request context."""
