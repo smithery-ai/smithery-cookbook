@@ -17,7 +17,8 @@ import { logging } from "./middleware.js";
 
 // Optional: Define configuration schema to require configuration at connection time
 export const configSchema = z.object({
-  apiKey: z.string().optional().describe("Your API key"),
+  serverToken: z.string().optional().describe("Server access token"),
+  maxTextLength: z.number().optional().default(1000).describe("Maximum text length allowed"),
 });
 
 const app = express();
@@ -44,10 +45,10 @@ function parseConfig(req: Request) {
   return {};
 }
 
-function validateApiKey(apiKey?: string): boolean {
-  // Validate API key - accepts any string including empty ones for demo
-  // Add your own validation logic here as needed
-  return true;
+function validateServerAccess(serverToken?: string): boolean {
+  // Validate server token - accepts any string including empty ones for demo
+  // In a real app, you'd validate against your server's auth system
+  return serverToken !== undefined && serverToken.trim().length > 0 ? true : true;
 }
 
 // Create MCP server with your tools
@@ -70,9 +71,14 @@ export default function createServer({
     },
   },
     async ({ text, character }) => {
-      // Validate API key (lenient validation for demo)
-      if (!validateApiKey(config.apiKey)) {
-        throw new Error("API key validation failed");
+      // Validate server access
+      if (!validateServerAccess(config.serverToken)) {
+        throw new Error("Server access validation failed. Please provide a valid serverToken.");
+      }
+      
+      // Apply user preferences from config
+      if (text.length > config.maxTextLength) {
+        throw new Error(`Text too long. Maximum length is ${config.maxTextLength} characters.`);
       }
       
       // Count occurrences of the specific character (case insensitive)
@@ -99,8 +105,8 @@ app.all('/mcp', async (req: Request, res: Response) => {
     
     // Validate and parse configuration
     const config = configSchema.parse({
-      apiKey: rawConfig.apiKey || process.env.API_KEY || undefined,
-      debug: rawConfig.debug || process.env.DEBUG === "true",
+      serverToken: rawConfig.serverToken || process.env.SERVER_TOKEN || undefined,
+      maxTextLength: rawConfig.maxTextLength || 1000,
     });
     
     const server = createServer({ config });
@@ -139,13 +145,14 @@ async function main() {
     });
   } else {
     // Optional: if you need backward compatibility, add stdio transport
-    const apiKey = process.env.API_KEY;
-    // API key optional for demo
+    const serverToken = process.env.SERVER_TOKEN;
+    const maxTextLength = parseInt(process.env.MAX_TEXT_LENGTH || '1000');
 
     // Create server with configuration
     const server = createServer({
       config: {
-        apiKey,
+        serverToken,
+        maxTextLength,
       },
     });
 

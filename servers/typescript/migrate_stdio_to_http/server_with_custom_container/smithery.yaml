@@ -6,10 +6,14 @@ startCommand:
   type: "http"
   configSchema:
     type: object
-    required: [apiKey]
     properties:
-      apiKey:
+      serverToken:
         type: string
-        description: Your API key
+        description: Server access token
+      maxTextLength:
+        type: number
+        description: Maximum text length allowed
+        default: 1000
   exampleConfig:
-    apiKey: "sk-example-123"
+    serverToken: "your-server-token"
+    maxTextLength: 1000
