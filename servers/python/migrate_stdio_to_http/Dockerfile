@@ -34,4 +34,4 @@ EXPOSE 8080
 ENTRYPOINT []
 
 # Run the application directly using the venv Python
-CMD ["python", "main.py"] 
+CMD ["python", "src/main.py"] 
