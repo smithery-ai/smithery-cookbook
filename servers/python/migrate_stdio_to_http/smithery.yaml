@@ -7,9 +7,14 @@ startCommand:
   configSchema:
     type: "object"
     properties:
-      apiKey:
+      serverToken:
         type: "string"
-        description: "API key for accessing the Character Counter server (optional for demo)"
-    required: [] # add `apiKey` here to make it required
+        description: "Server token for accessing the Character Counter server (optional for demo)"
+      maxTextLength:
+        type: "integer"
+        description: "Maximum allowed text length for character counting"
+        default: 1000
+    required: [] # add `serverToken` here to make it required
   exampleConfig:
-    apiKey: "demo-key" 
+    serverToken: "demo-token"
+    maxTextLength: 1000 
