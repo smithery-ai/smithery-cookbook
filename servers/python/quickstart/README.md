@@ -10,7 +10,7 @@ This server provides a calculator tool called `add` that takes two numbers and r
 
 - Python 3.12 or higher
 - A Python package manager ([uv](https://docs.astral.sh/uv/) recommended, but pip, poetry, etc. also work)
-- Node.js and npx (optional, for Smithery CLI and Playground
+- Node.js and npx (optional, for Smithery Playground)
 
 ## Quick Start
 
@@ -27,14 +27,14 @@ This server provides a calculator tool called `add` that takes two numbers and r
    uv sync
    ```
    
-   **With pip:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-   
    **With poetry:**
    ```bash
    poetry install
+   ```
+   
+   **With pip:**
+   ```bash
+   pip install -r requirements.txt
    ```
 
 3. **Run the server:**
@@ -45,8 +45,15 @@ This server provides a calculator tool called `add` that takes two numbers and r
    ```bash
    # With uv
    uv run smithery dev
+   # or use the shorter script alias:
+   uv run dev
    
-   # With pip/poetry (after installing dependencies)
+   # With poetry
+   poetry run smithery dev
+   # or use the shorter script alias:
+   poetry run dev
+   
+   # With pip (after installing dependencies)
    smithery dev
    ```
    This starts the MCP server on `http://localhost:8081` and keeps it running.
@@ -55,8 +62,15 @@ This server provides a calculator tool called `add` that takes two numbers and r
    ```bash
    # With uv
    uv run smithery playground
+   # or use the shorter script alias:
+   uv run playground
    
-   # With pip/poetry (after installing dependencies)
+   # With poetry
+   poetry run smithery playground
+   # or use the shorter script alias:
+   poetry run playground
+   
+   # With pip (after installing dependencies)
    smithery playground
    ```
    This starts the MCP server AND automatically opens the Smithery Playground in your browser where you can:
