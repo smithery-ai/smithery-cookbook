@@ -1,9 +1,23 @@
+[build-system]
+requires = ["uv_build>=0.8.15,<0.9.0"]
+build-backend = "uv_build"
+
 [project]
-name = "quickstart"
+name = "character-counter"
 version = "0.1.0"
-description = "Add your description here"
+description = "A character counter MCP server"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "mcp[cli]>=1.13.0",
+    "mcp[cli] (>=1.13.0)",
+    "smithery (>=0.1.22)",
 ]
+
+[project.scripts]
+# Run the MCP server in development mode
+dev = "smithery.cli.dev:main"
+# Run server with interactive testing playground
+playground = "smithery.cli.playground:main"
+
+[tool.smithery]
+server = "character_counter.server:create_server"
