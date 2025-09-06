@@ -79,6 +79,10 @@ This server provides a character counter tool called `count_character` that coun
    - See the complete request/response flow
    - Debug and iterate on your MCP tools quickly
 
+## Testing the Character Counter
+
+Try asking: **"How many r's are in strawberry?"**
+
 4. **Deploy to Smithery:**
    To deploy your MCP server:
    - Push your code to GitHub (make sure to include the `smithery.yaml`)
