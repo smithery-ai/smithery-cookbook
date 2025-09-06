@@ -1,10 +1,10 @@
-# FastMCP Quickstart for Smithery
+# Calculator MCP Server - Python Quickstart
 
 A simple example of creating an MCP server using FastMCP and Python, designed to work with Smithery.
 
 ## What This Does
 
-This server provides a single tool called `greet` that takes a name and returns a friendly greeting message. You'll test it using the Smithery Playground for interactive development.
+This server provides a calculator tool called `add` that takes two numbers and returns their sum. You'll test it using the Smithery Playground for interactive development.
 
 ## Prerequisites
 
@@ -20,48 +20,34 @@ This server provides a single tool called `greet` that takes a name and returns 
    cd smithery-cookbook/servers/python/quickstart
    ```
 
-2. **Install Smithery CLI (optional, for playground testing):**
-   ```bash
-   npm install -g @smithery/cli
-   ```
-
-3. **Install dependencies:**
+2. **Install dependencies:**
    ```bash
    uv sync
    ```
 
-4. **Run the server:**
-   ```bash
-   uv run python main.py
-   ```
-
-5. **Test it's working:**
-   The server will start on `http://localhost:8081`
-
-6. **Launch Smithery Playground:**
-   In a new terminal, launch the interactive Smithery playground:
-   ```bash
-   smithery playground --port 8081
-   ```
+3. **Run the server:**
    
-   This will open a web interface where you can:
+   You have two options:
+   
+   **Option A: Just run the server**
+   ```bash
+   uv run smithery dev
+   ```
+   This starts the MCP server on `http://localhost:8081` and keeps it running.
+   
+   **Option B: Run server + open playground (recommended for testing)**
+   ```bash
+   uv run smithery playground
+   ```
+   This starts the MCP server AND automatically opens the Smithery Playground in your browser where you can:
    - Interact with your MCP server in real-time
-   - Test the `greet` tool with different inputs
+   - Test the `add` tool with different numbers
    - See the complete request/response flow
    - Debug and iterate on your MCP tools quickly
 
-7. **Add Smithery session configuration (optional):**
-   
-   This step has three parts to add session-based configuration handling:
-   - Part A: Add config validation function
-   - Part B: Update the tool to use config validation
-   - Part C: Test with configuration
-   
-   *Skip to step 8 if you don't need session configuration.*
-
-8. **Deploy to Smithery:**
+4. **Deploy to Smithery:**
    To deploy your MCP server:
-   - Push your code to GitHub (make sure to include the `smithery.yaml` and `Dockerfile`)
+   - Push your code to GitHub (make sure to include the `smithery.yaml`)
    - Connect your repository at [https://smithery.ai/new](https://smithery.ai/new)
 
 Your server will be available over HTTP and ready to use with any MCP-compatible client!
