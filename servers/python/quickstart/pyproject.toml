@@ -9,8 +9,8 @@ description = "A character counter MCP server"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "mcp[cli] (>=1.13.0)",
-    "smithery (>=0.1.22)",
+    "mcp>=1.13.0",
+    "smithery>=0.1.23",
 ]
 
 [project.scripts]
