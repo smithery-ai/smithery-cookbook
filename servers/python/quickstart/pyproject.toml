@@ -3,9 +3,9 @@ requires = ["uv_build>=0.8.15,<0.9.0"]
 build-backend = "uv_build"
 
 [project]
-name = "calculator"
+name = "character-counter"
 version = "0.1.0"
-description = "Add your description here"
+description = "A character counter MCP server"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -20,4 +20,4 @@ dev = "smithery.cli.dev:main"
 playground = "smithery.cli.playground:main"
 
 [tool.smithery]
-server = "calculator.server:create_server"
+server = "character_counter.server:create_server"

@@ -1,1 +1,0 @@
-# Calculator MCP Server Package
